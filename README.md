@@ -108,6 +108,216 @@ A szerver megvalósításához a JAVA Spring keretrendszerét használtam, az al
 
 A szervert futtatás után, a localhost:8080 címen érhetjük el.
 
+### 3.2 Könyvtárstruktúra
+#### 3.2.1 Szerver oldal
+<details>
+<summary>Click to expand</summary>
+<pre>
+GameRanks
+│   .gitignore
+│   mvnw
+│   mvnw.cmd
+│   pom.xml
+│   
+├───.mvn
+│   └───wrapper
+│           maven-wrapper.jar
+│           maven-wrapper.properties
+│           
+├───src
+│   ├───main
+│   │   ├───java
+│   │   │   └───GameRanks
+│   │   │       └───GameRanks
+│   │   │           │   GameRanksApplication.java
+│   │   │           │   
+│   │   │           ├───annotation
+│   │   │           │       AccessBy.java
+│   │   │           │       
+│   │   │           ├───api
+│   │   │           │       DeveloperApiController.java
+│   │   │           │       GameApiController.java
+│   │   │           │       GeneralApiController.java
+│   │   │           │       PublisherApiController.java
+│   │   │           │       UserApiController.java
+│   │   │           │       
+│   │   │           ├───config
+│   │   │           │       WebMvcConfig.java
+│   │   │           │       
+│   │   │           ├───controller
+│   │   │           │       DeveloperController.java
+│   │   │           │       GameController.java
+│   │   │           │       GeneralController.java
+│   │   │           │       PublisherController.java
+│   │   │           │       UserController.java
+│   │   │           │       
+│   │   │           ├───exception
+│   │   │           │       EmailInUseException.java
+│   │   │           │       UserNotValidException.java
+│   │   │           │       
+│   │   │           ├───interceptor
+│   │   │           │       AuthInterceptor.java
+│   │   │           │       
+│   │   │           ├───model
+│   │   │           │       BaseModel.java
+│   │   │           │       Developer.java
+│   │   │           │       Game.java
+│   │   │           │       Publisher.java
+│   │   │           │       Review.java
+│   │   │           │       User.java
+│   │   │           │       
+│   │   │           ├───repository
+│   │   │           │       DeveloperRepository.java
+│   │   │           │       GameRepository.java
+│   │   │           │       PublisherRepository.java
+│   │   │           │       ReviewRepository.java
+│   │   │           │       UserRepository.java
+│   │   │           │       
+│   │   │           ├───responseStruct
+│   │   │           │       GameStruct.java
+│   │   │           │       
+│   │   │           └───service
+│   │   │                   DeveloperService.java
+│   │   │                   GameService.java
+│   │   │                   PublisherService.java
+│   │   │                   UserService.java
+│   │   │                   
+│   │   └───resources
+│   │       │   application.properties
+│   │       │   import.sql
+│   │       │   
+│   │       ├───static
+│   │       └───templates
+│   │               developer.html
+│   │               developerList.html
+│   │               game.html
+│   │               gameList.html
+│   │               login.html
+│   │               main.html
+│   │               notFound.html
+│   │               publisher.html
+│   │               publisherList.html
+│   │               register.html
+│   │               user.html
+│   │               
+│   └───test
+│       └───java
+│           └───GameRanks
+│               └───GameRanks
+│                       GameRanksApplicationTests.java
+│                       
+└───target
+    │   GameRanks-0.0.1-SNAPSHOT.jar
+    │   GameRanks-0.0.1-SNAPSHOT.jar.original
+    │   
+    ├───classes
+    │   │   .netbeans_automatic_build
+    │   │   application.properties
+    │   │   import.sql
+    │   │   
+    │   ├───GameRanks
+    │   │   └───GameRanks
+    │   │       │   GameRanksApplication.class
+    │   │       │   
+    │   │       ├───annotation
+    │   │       │       AccessBy.class
+    │   │       │       
+    │   │       ├───api
+    │   │       │       DeveloperApiController.class
+    │   │       │       GameApiController.class
+    │   │       │       GeneralApiController.class
+    │   │       │       PublisherApiController.class
+    │   │       │       UserApiController.class
+    │   │       │       
+    │   │       ├───config
+    │   │       │       WebMvcConfig.class
+    │   │       │       
+    │   │       ├───controller
+    │   │       │       DeveloperController.class
+    │   │       │       GameController.class
+    │   │       │       GeneralController.class
+    │   │       │       PublisherController.class
+    │   │       │       UserController.class
+    │   │       │       
+    │   │       ├───exception
+    │   │       │       EmailInUseException.class
+    │   │       │       UserNotValidException.class
+    │   │       │       
+    │   │       ├───handler
+    │   │       ├───interceptor
+    │   │       │       AuthInterceptor.class
+    │   │       │       
+    │   │       ├───model
+    │   │       │       BaseModel.class
+    │   │       │       Developer.class
+    │   │       │       Game$Genre.class
+    │   │       │       Game.class
+    │   │       │       Publisher.class
+    │   │       │       Review.class
+    │   │       │       User$AccessLevel.class
+    │   │       │       User.class
+    │   │       │       
+    │   │       ├───repository
+    │   │       │       DeveloperRepository.class
+    │   │       │       GameRepository.class
+    │   │       │       PublisherRepository.class
+    │   │       │       ReviewRepository.class
+    │   │       │       UserRepository.class
+    │   │       │       
+    │   │       ├───responseStruct
+    │   │       │       GameStruct.class
+    │   │       │       
+    │   │       └───service
+    │   │               DeveloperService.class
+    │   │               GameService.class
+    │   │               PublisherService.class
+    │   │               UserService.class
+    │   │               
+    │   └───templates
+    │           developer.html
+    │           developerList.html
+    │           game.html
+    │           gameList.html
+    │           login.html
+    │           main.html
+    │           notFound.html
+    │           publisher.html
+    │           publisherList.html
+    │           register.html
+    │           user.html
+    │           
+    ├───generated-sources
+    │   └───annotations
+    ├───generated-test-sources
+    │   └───test-annotations
+    ├───maven-archiver
+    │       pom.properties
+    │       
+    ├───maven-status
+    │   └───maven-compiler-plugin
+    │       ├───compile
+    │       │   └───default-compile
+    │       │           createdFiles.lst
+    │       │           inputFiles.lst
+    │       │           
+    │       └───testCompile
+    │           └───default-testCompile
+    │                   createdFiles.lst
+    │                   inputFiles.lst
+    │                   
+    ├───surefire-reports
+    │       GameRanks.GameRanks.GameRanksApplicationTests.txt
+    │       TEST-GameRanks.GameRanks.GameRanksApplicationTests.xml
+    │       
+    └───test-classes
+        │   .netbeans_automatic_build
+        │   
+        └───GameRanks
+            └───GameRanks
+                    GameRanksApplicationTests.class
+</pre>
+</details>
+
 ## 4. Tesztelés
 
 
