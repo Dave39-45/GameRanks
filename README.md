@@ -97,6 +97,8 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
 
 ### 2.1 Architektúra terv
 #### 2.1.1 Oldaltérkép
+![](docs/images/Oldalterkep.png)
+
 #### 2.1.2 Végpontok
 
 ### 2.2 Felhasználóifelület-modell
