@@ -90,8 +90,22 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
   4. Az értékelés megírása után, azt véglegesíti, így az meg is jelenik a játék és a saját értékelései közt
   
   ![](docs/images/Pelda-folyamat.png)
-  
+
+
+
 ## 2. Tervezés
+
+### 2.1 Architektúra terv
+#### 2.1.1 Oldaltérkép
+#### 2.1.2 Végpontok
+
+### 2.2 Felhasználóifelület-modell
+#### 2.2.1 Oldalvázlatok
+
+### 2.3 Osztálymodell
+#### 2.3.1 Adatbázisterv
+![](docs/images/Adatbazisterv.png)
+
 
 
 ## 3. Implementáció
