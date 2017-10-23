@@ -90,3 +90,25 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
   4. Az értékelés megírása után, azt véglegesíti, így az meg is jelenik a játék és a saját értékelései közt
   
   ![](docs/images/Pelda-folyamat.png)
+  
+## 2. Tervezés
+
+
+## 3. Implementáció
+
+### 3.1 Fejlesztői környezet
+
+#### 3.1.1 Szerver oldal
+A szerver megvalósításához a JAVA Spring keretrendszerét használtam, az alábbi technológiákkal kiegészítve:
+  - H2
+  - JPA
+  - Lombok
+  - Thymeleaf
+  - DevTools
+
+A szervert futtatás után, a localhost:8080 címen érhetjük el.
+
+## 4. Tesztelés
+
+
+## 5. Felhasználói dokumentáció
