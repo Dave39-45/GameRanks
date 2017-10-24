@@ -100,6 +100,46 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
 ![](docs/images/Oldalterkep.png)
 
 #### 2.1.2 Végpontok
+  - /api
+
+      | Útvonal | Method | Leírás |
+      | ------- | :----: | ------ |
+      | /                | GET  | Főoldalon megjelenő adatok lekérése |
+      | /login           | POST | Bejelentkezéshez szükséges adatok elküldése |
+      | /logout          | POST | Kilépéshez szükséges adatok elküldése |
+      | /register        | POST | Regisztráláshoz szükséges adatok elküldése |
+    
+  - /api/user
+  
+      | Útvonal | Method | Leírás |
+      | ------- | :----: | ------ |
+      | /                | GET | A belépett felhasználó adatainak lekérése |
+      | /changePassword   | PUT | Jelszó változtatás |
+      | /changeEmail      | PUT | Email változtatás |
+    
+  - /api/game
+
+      | Útvonal | Method | Leírás |
+      | ------- | :----: | ------ |
+      | /                | GET    | Játékok listájának lekérése |
+      | /{id}            | GET    | Egy konkrét játék adatainak lekérése |
+      | /{id}            | POST   | Értékelés küldése egy játékhoz |
+      | /{id}            | PUT    | Meglévő értékelés megváltoztatása |
+      | /{id}            | DELETE | Értékelés törlése |
+    
+  - /api/publisher
+  
+      | Útvonal | Method | Leírás |
+      | ------- | :----: | ------ |
+      | /                | GET | Kiadók listájának lekérése |
+      | /{id}            | GET | Egy konkrét kiadó adatainak lekérése |
+    
+  - /api/developer
+  
+      | Útvonal | Method | Leírás |
+      | ------- | :----: | ------ |
+      | /                | GET | Fejlesztők listájának lekérése |
+      | /{id}            | GET | Egy konkrét fejlesztő adatainak lekérése |
 
 ### 2.2 Felhasználóifelület-modell
 #### 2.2.1 Oldalvázlatok
