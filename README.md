@@ -102,7 +102,7 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
 #### 2.1.2 Végpontok
   - /api
 
-      | Útvonal | Method | Leírás |
+      | Útvonal | Metódus | Leírás |
       | ------- | :----: | ------ |
       | /                | GET  | Főoldalon megjelenő adatok lekérése |
       | /login           | POST | Bejelentkezéshez szükséges adatok elküldése |
@@ -111,7 +111,7 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
     
   - /api/user
   
-      | Útvonal | Method | Leírás |
+      | Útvonal | Metódus | Leírás |
       | ------- | :----: | ------ |
       | /                | GET | A belépett felhasználó adatainak lekérése |
       | /changePassword   | PUT | Jelszó változtatás |
@@ -119,7 +119,7 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
     
   - /api/game
 
-      | Útvonal | Method | Leírás |
+      | Útvonal | Metódus | Leírás |
       | ------- | :----: | ------ |
       | /                | GET    | Játékok listájának lekérése |
       | /{id}            | GET    | Egy konkrét játék adatainak lekérése |
@@ -129,14 +129,14 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
     
   - /api/publisher
   
-      | Útvonal | Method | Leírás |
+      | Útvonal | Metódus | Leírás |
       | ------- | :----: | ------ |
       | /                | GET | Kiadók listájának lekérése |
       | /{id}            | GET | Egy konkrét kiadó adatainak lekérése |
     
   - /api/developer
   
-      | Útvonal | Method | Leírás |
+      | Útvonal | Metódus | Leírás |
       | ------- | :----: | ------ |
       | /                | GET | Fejlesztők listájának lekérése |
       | /{id}            | GET | Egy konkrét fejlesztő adatainak lekérése |
@@ -147,6 +147,11 @@ A GameRanks egy játékosoknak szánt webes alkalmazás, ahol lehetőség nyíli
 ### 2.3 Osztálymodell
 #### 2.3.1 Adatbázisterv
 ![](docs/images/Adatbazisterv.png)
+
+### 2.4 Dinamikus működés
+#### 2.4.1 Szekvenciadiagram
+A **/api/game/{id}** végpont, POST metódusának működése:
+![](docs/images/Szekvencia-diagram.png)
 
 
 
