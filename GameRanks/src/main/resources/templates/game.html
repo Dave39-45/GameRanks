@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <div th:text="${gameName}"></div>
+        
+        <h2 th:if="${alreadyWrote}">You already wrote a review!</h2>
+        
+        <form action="#" th:action="@{/game/{gameId}(gameId=${gameId})}" th:object="${review}" method="post">
+            <div id="score">
+                <label for="score">Score:</label>
+                <input type="number" name="score" placeholder="score" th:field="*{score}" required="true"/> 
+            </div>
+            <div id="pros">
+                <label for="pros">Pros:</label> 
+                <input type="text" name="pros" placeholder="pros" th:field="*{pros}" required="true"/> 
+            </div>
+            <div id="cons">
+                <label for="cons">Cons:</label> 
+                <input type="text" name="cons" placeholder="cons" th:field="*{cons}" required="true"/> 
+            </div>
+             <div id="reviewText">
+                <label for="reviewText">Review text:</label> 
+                <input type="text" name="reviewText" placeholder="reviewText" th:field="*{reviewText}" required="true"/> 
+            </div>
+            <input type="submit" value="Post review" />
+        </form>
+    </body>
+</html>

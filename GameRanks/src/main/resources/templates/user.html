@@ -1,0 +1,35 @@
+<!DOCTYPE HTML> 
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <div>User's page</div>
+        
+        <h2 th:if="${success}">Successful change!</h2>
+        <h2 th:if="${fail}">Could not update your profile!</h2>
+        <h2 th:if="${passwordsAreDifferent}">The passwords are not the same!</h2>
+        <form action="#" th:action="@{/user/changePassword}" method="post">
+            <div id="password"> 
+                <label for="password">Password:</label> 
+                <input type="password" name="password" placeholder="password" required="true"/> 
+            </div>
+            <div id="passwordAgain"> 
+                <label for="passwordAgain">Password again:</label> 
+                <input type="password" name="passwordAgain" placeholder="passwordAgain" required="true"/> 
+            </div>
+            <input type="submit" value="Change password" />
+        </form> 
+        
+        <h2 th:if="${emailInUse}">Cannot change to this email!</h2>
+        <form action="#" th:action="@{/user/changeEmail}" method="post">
+            <div id="email"> 
+                <label for="email">Email:</label> 
+                <input type="email" name="email" placeholder="email" required="true"/> 
+            </div> 
+            <input type="submit" value="Change email" />
+        </form> 
+    </body>
+</html>
