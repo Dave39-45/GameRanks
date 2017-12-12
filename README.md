@@ -258,7 +258,7 @@ Kliens oldalon az AngularJS framework -öt használtam, az SPA megalkotására.
 ### 3.2 Könyvtárstruktúra
 #### 3.2.1 Szerver oldal
 <details>
-<summary>Click to expand</summary>
+<summary>Kattints a megjelenítéshez</summary>
 <pre>
 GameRanks
 │   .gitignore
@@ -508,7 +508,7 @@ GameRanks
 
 #### 3.2.2 Kliens oldal
 <details>
-<summary>Click to expand</summary>
+<summary>Kattints a megjelenítéshez</summary>
 <pre>
 GameRanksClient/src
 │   favicon.ico
