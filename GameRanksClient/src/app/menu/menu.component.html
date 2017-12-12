@@ -1,0 +1,32 @@
+<div id="messageC" class="success">
+	<div id="closeMessageButton" (click)="closeMessage()"></div>
+	<span id="message">Successful registration!</span>
+</div>
+
+<div id="loginC" (click)="openLogin()" (mouseleave)="closeLogin()">
+	<div id="loginInnerC">
+		<label for="loginUsername">Username</label>
+		<input type="text" id="loginUsername">
+
+		<label for="loginPassword">Password</label>
+		<input type="password" id="loginPassword">
+
+		<div id="loginButton" (click)="login()">Login</div>
+
+		<span>Don't have an account?</span>
+		<div id="toRegisterButton" routerLink="/register">Register</div>
+	</div>
+</div>
+
+<div id="logout" (click)="logout()"></div>
+<div *ngIf="isLoggedInService.isLoggedIn()" routerLink="/user" id="toProfile" title="Profile"></div>
+
+<div id="menu">
+	<div class="menuItem" routerLink="/">Home</div>
+	<div class="menuItem" routerLink="/game">Games</div>
+	<div id="logo">
+		<img src="assets/img/misc/rank.png" title="Game Ranks">
+	</div>
+	<div class="menuItem" routerLink="/publisher">Publishers</div>
+	<div class="menuItem" routerLink="/developer">Developers</div>
+</div>

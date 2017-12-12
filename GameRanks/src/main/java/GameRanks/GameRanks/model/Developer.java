@@ -23,8 +23,10 @@ public class Developer extends BaseModel{
     @Column(nullable = false, unique = true)
     private String name;
     
-    @OneToMany(targetEntity = Game.class, mappedBy = "developer", cascade = CascadeType.MERGE)
+    private String logo;
+    
+    /*@OneToMany(targetEntity = Game.class, mappedBy = "developer", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("developer")
     @JsonIgnore
-    private List<Game> games;
+    private List<Game> games;*/
 }

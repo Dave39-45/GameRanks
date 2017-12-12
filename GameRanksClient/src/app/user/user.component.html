@@ -1,0 +1,132 @@
+<div id="confirmC">
+	<div id="closeConfirmButton" (click)="ConfirmHandler.no()"></div>
+	<span id="confirmMessage">Are you sure?</span>
+	<div>
+		<div (click)="ConfirmHandler.yes()">Yes</div>
+		<div (click)="ConfirmHandler.no()">No</div>
+	</div>
+</div>
+
+<div id="userC">
+	<div>
+		<div id="userAvatar" [ngStyle]="userPageStruct.user.avatar !== null ? {'background-image': 'url(' + userPageStruct.user.avatar + ')'} : {'background-image': 'url(assets/img/misc/userAvatarPlaceholder.png)'}"></div>
+		<div id="userSettingsOpener" (click)="UserHandler.userSettingsOpenerClicked()"></div>
+		<span>{{userPageStruct.user.username}}</span>
+	</div>
+
+	<div id="userSettings">
+		<div>
+			<span>Change avatar</span>
+			<img id="userSettingsAvatarImg" src="{{userPageStruct.user.avatar}}">
+			<label for="userSettingsAvatar">New avatar URL</label>
+			<input type="text" id="userSettingsAvatar" (blur)="UserHandler.avatarChanged()">
+		</div>
+
+		<div>
+			<span>Change password</span>
+
+			<label for="userSettingsNewPsw">New password</label>
+			<input type="password" id="userSettingsNewPsw">
+
+			<label for="userSettingsNewPswA">New password again</label>
+			<input type="password" id="userSettingsNewPswA">
+		</div>
+
+		<div>
+			<span>Change email</span>
+
+			<label for="userSettingsNewEmail">New email</label>
+			<input type="email" id="userSettingsNewEmail">
+		</div>
+
+		<div>
+			<div id="userSettingsSaveButton" (click)="UserHandler.changeUserData()">Save changes</div>
+		</div>
+	</div>
+</div>
+
+<div id="reviewsC">
+	<h1>Own reviews</h1>
+
+	<div>
+		<div id="reviewFilterOpener" (click)="ReviewHandler.filterOpenerClicked()">
+			<img src="assets/img/misc/search.png" title="Filter">
+		</div>
+	</div>
+
+	<div id="listFilter">
+		<div>
+			<div>
+				<label for="reviewFilterGame">Game: </label>
+				<input type="text" id="reviewFilterGame" name="game">
+			</div>
+
+			<div>
+				<label for="reviewFilterScore">Score: </label>
+				<select id="reviewFilterScore" name="filterScore">
+					<option value="" selected>All</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+
+				<label for="reviewFilterOrder">Order: </label>
+				<select id="reviewFilterOrder" name="order">
+					<option selected>Decreasing</option>
+					<option >Increasing</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="listFilterButton" (click)="ReviewHandler.filterReview()">Filter</div>
+	</div>
+
+	<div id="reviews">
+		<div class="review" *ngFor="let userPageReviewStruct of ReviewHandler.filteredReviews ; let i = index" ng-init="revNum = $index">
+			<div>
+				<div class="{{userPageReviewStruct.review.platform | lowercase}}Bg"></div>
+
+				<div>
+					<span>PROS</span>
+					<ul>
+						<li *ngFor="let pro of userPageReviewStruct.review.pros">{{pro}}</li>
+					</ul>
+				</div>
+
+				<div>
+					<div><img src="assets/img/games/{{userPageReviewStruct.gameImage}}"></div>
+					<span>{{userPageReviewStruct.gameName}}</span>
+					<span>{{userPageReviewStruct.review.score}}</span>
+				</div>
+
+				<div>
+					<span>CONS</span>
+					<ul>
+						<li *ngFor="let con of userPageReviewStruct.review.cons">{{con}}</li>
+					</ul>
+				</div>
+
+				<div class="{{userPageReviewStruct.review.platform | lowercase}}Bg"></div>
+			</div>
+
+			<div><span attr.data-fromReview="rev{{i}}" (click)="ReviewHandler.openCloseReview($event)">ˇ<!--ˆ--></span></div>
+
+			<div class="reviewOptionsC">
+				<div class="editReview" title="Edit review" (click)="ReviewHandler.editReview(userPageReviewStruct.review.id)"></div>
+				<div class="deleteReview" title="Delete review" (click)="ReviewHandler.confirmDelete(userPageReviewStruct.review.id)"></div>
+			</div>
+
+			<div attr.data-toReview="rev{{i}}">
+				<div>{{userPageReviewStruct.review.reviewText}}</div>
+				<span>Reviewed on {{userPageReviewStruct.review.platform}} - {{userPageReviewStruct.review.createdOn}}</span>
+			</div>
+		</div>
+	</div>
+</div>

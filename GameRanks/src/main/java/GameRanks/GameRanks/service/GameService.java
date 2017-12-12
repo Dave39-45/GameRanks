@@ -1,34 +1,25 @@
 package GameRanks.GameRanks.service;
 
+import GameRanks.GameRanks.clientStruct.element.GameStruct;
+import GameRanks.GameRanks.clientStruct.element.UserPageReviewStruct;
+import GameRanks.GameRanks.serverStruct.ScoreStruct;
 import GameRanks.GameRanks.model.Game;
 import GameRanks.GameRanks.model.Review;
-import GameRanks.GameRanks.model.User;
 import GameRanks.GameRanks.repository.GameRepository;
-import GameRanks.GameRanks.repository.ReviewRepository;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Data
 public class GameService {
-    
-    //KELL
-        //AUTOWIRED repo
-    
-        //getGameList
-            //Talan a getGameList -nek adhatunk szuresi feltetelt is?
-    
-        //CRUD
-    
     @Autowired
     private GameRepository gameRepository;
     
     @Autowired
-    private ReviewRepository reviewRepository;
+    private ReviewService reviewService;
     
     public Iterable<Game> getGameList(){
         return gameRepository.findAll();
@@ -38,40 +29,77 @@ public class GameService {
         return gameRepository.findOne(id);
     }
     
-    public Iterable<Review> getReviewForGame(long gameId){
-        return reviewRepository.findAllByGameId(gameId);
+    public boolean isValidPlatform(long id, String platform){
+        return gameRepository.isValidPlatform(id, platform).isPresent();
     }
     
-    public boolean hasUserWroteReview(long userId){
-        return reviewRepository.findByUserId(userId).isPresent();
-    }
-    
-    @Transactional
-    public int getAvgScoreForGame(long gameId){
-        return reviewRepository.calculateAverageGameScore(gameId);
-    }
-    
-    public Review getReview(long reviewId){
-        return reviewRepository.findOne(reviewId);
-    }
-    
-    @Transactional
-    public Review createReview(Review review, Game game, User user){
-        review.setGame(game);
-        review.setUser(user);
-        review.setCreatedOn(Timestamp.valueOf(LocalDateTime.now()));
+    public Iterable<GameStruct> getGamesByScore(Iterable<ScoreStruct> gamesToGet){
+        List<GameStruct> games = new ArrayList<>();
         
-        return reviewRepository.save(review);
+        for(ScoreStruct gameScore : gamesToGet){
+            Game game = gameRepository.findOne(gameScore.getId());
+            //String steamData = game.getSteamId() != null ? getSteamDataForGame(game.getSteamId()) : null;
+            
+            games.add(new GameStruct(game, gameScore.getAvgscore(), null, /*steamData*/null, null));
+        }
+        
+        return reviewService.addGameRankTitle(games);
     }
     
-    @Transactional
-    public boolean updateReview(long userId, long gameId, Review review){
-        //return reviewRepository.updateReview(userId, gameId, review) > 0;
-        return reviewRepository.updateReview(userId, gameId, review.getScore(), review.getPros(), review.getCons(), review.getReviewText()) > 0;
+    public Iterable<Game> getGamesInRangeWithFilter(int start, int amount, String name, String platform, String genre, boolean ascending, Long publisherId, Long developerId){
+        return ascending ? gameRepository.getGamesInRangeWithFilterAsc(start, amount, name.toLowerCase(), platform, genre.toUpperCase(), publisherId, developerId) :
+                            gameRepository.getGamesInRangeWithFilterDesc(start, amount, name.toLowerCase(), platform, genre.toUpperCase(), publisherId, developerId);
     }
     
-    @Transactional
-    public boolean deleteReview(long userId, long gameId){
-        return reviewRepository.removeByUserIdAndGameId(userId, gameId) > 0;
+    public List<Object[]> getNumberOfGamesPerGenre(Long publisherId, Long developerId){
+        Game.Genre[] genres = Game.Genre.values();
+        List<Object[]> results = new ArrayList<>();
+        
+        for(Game.Genre g : genres){
+            String gs = g.toString();
+            int numberOfGames = gameRepository.getNumberOfGamesPerGenre(gs, publisherId, developerId);
+            
+            if(numberOfGames > 0){
+                Object[] a = {gs.substring(0, 1) + gs.substring(1).toLowerCase(), numberOfGames};
+                results.add(a);
+            }
+        }
+        
+        return results;
+    }
+    
+    public List<Object[]> getNumberOfGamesPerPlatform(Long publisherId, Long developerId){
+        Game.Platform[] platforms = Game.Platform.values();
+        List<Object[]> results = new ArrayList<>();
+        
+        for(Game.Platform p : platforms){
+            String ps = p.toString();
+            Object[] a = {ps, gameRepository.getNumberOfGamesPerPlatform(ps, publisherId, developerId)};
+            results.add(a);
+        }
+        
+        return results;
+    }
+    
+    public Iterable<ScoreStruct> objectsToScoreStruct(List<Object[]> rawScores){
+        List<ScoreStruct> scores = new ArrayList<>();
+        
+        for(Object[] obj : rawScores){
+            scores.add(new ScoreStruct(obj));
+        }
+        
+        return scores;
+    }
+    
+    public Iterable<UserPageReviewStruct> getGameAndReviewDataForUser(long userId){
+        Iterable<Review> reviews = reviewService.getReviewsForUser(userId);
+        List<UserPageReviewStruct> structs = new ArrayList<>();
+        
+        for(Review review : reviews){
+            Game game = review.getGame();
+            structs.add(new UserPageReviewStruct(review, game.getId(), game.getName(), game.getSmallImage()));
+        }
+        
+        return structs;
     }
 }

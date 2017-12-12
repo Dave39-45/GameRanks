@@ -1,0 +1,64 @@
+<div id="listStartC">
+	<div  [ngStyle]="{'background-image': 'url(assets/img/publishers/' + topThree[1].publisher.logo + ')', 'background-color': topThree[1].publisher.bgColor}" class="pubDevWallpaper">
+		<div class="listStartInfoC">
+			<h1>{{topThree[1].publisher.name}}</h1>
+			<div>{{topThree[1].avgScore % 1 === 0 ? topThree[1].avgScore : topThree[1].avgScore.toFixed(1)}}</div>
+		</div>
+		<img src="assets/img/misc/{{topThree[1].rankTitle}}RibbonCut.png">
+	</div>
+
+	<div  [ngStyle]="{'background-image': 'url(assets/img/publishers/' + topThree[0].publisher.logo + ')', 'background-color': topThree[0].publisher.bgColor}" class="pubDevWallpaper">
+		<div class="listStartInfoC">
+			<h1>{{topThree[0].publisher.name}}</h1>
+			<div>{{topThree[0].avgScore % 1 === 0 ? topThree[0].avgScore : topThree[0].avgScore.toFixed(1)}}</div>
+		</div>
+		<img src="assets/img/misc/{{topThree[0].rankTitle}}RibbonCut.png">
+	</div>
+
+	<div  [ngStyle]="{'background-image': 'url(assets/img/publishers/' + topThree[2].publisher.logo + ')', 'background-color': topThree[2].publisher.bgColor}" class="pubDevWallpaper">
+		<div class="listStartInfoC">
+			<h1>{{topThree[2].publisher.name}}</h1>
+			<div>{{topThree[2].avgScore % 1 === 0 ? topThree[2].avgScore : topThree[2].avgScore.toFixed(1)}}</div>
+		</div>
+		<img src="assets/img/misc/{{topThree[2].rankTitle}}RibbonCut.png">
+	</div>
+</div>
+
+<div id="listC">
+	<h2>List of publishers</h2>
+
+	<div id="listFilterOpener" (click)="filterOpenerClicked()">
+		<img src="assets/img/misc/search.png" title="Filter">
+	</div>
+
+	<div id="listFilter">
+		<div>
+			<div>
+				<label for="filterName">Name: </label>
+				<input type="text" id="filterName" name="name">
+			</div>
+
+			<div>
+				<label for="filterOrder">Order: </label>
+				<select id="filterOrder" name="order">
+					<option selected>Descending</option>
+					<option >Ascending</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="listFilterButton" (click)="filter()">Filter</div>
+	</div>
+
+	<div id="list">
+		<div *ngFor="let publisherStruct of publishers" routerLink="/publisher/{{publisherStruct.publisher.id}}" class="listElement">
+			<div [ngStyle]="{'background-image': 'url(assets/img/publishers/' + publisherStruct.publisher.listImage + ')'}">
+				<div><b>{{publisherStruct.avgScore % 1 === 0 ? publisherStruct.avgScore : publisherStruct.avgScore.toFixed(1)}}</b></div>
+				<img *ngIf="publisherStruct.rankTitle != 'normal'" src="assets/img/misc/{{publisherStruct.rankTitle}}RibbonCut.png">
+			</div>
+			<div class="listElementOtherInfoC">
+				<span>{{publisherStruct.publisher.name}}</span>
+			</div>
+		</div>
+	</div>
+</div>

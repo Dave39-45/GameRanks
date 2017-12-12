@@ -6,6 +6,7 @@ import GameRanks.GameRanks.model.Review;
 import GameRanks.GameRanks.model.User;
 import GameRanks.GameRanks.model.User.AccessLevel;
 import GameRanks.GameRanks.service.GameService;
+import GameRanks.GameRanks.service.ReviewService;
 import GameRanks.GameRanks.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,24 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/game")
 public class GameController {
-    
-    
-    //TODO
-        //Ha mar irt egy ertekelest, akkor ne tudjon megegyet!!!
-    
-        //Csak akkor latszodjon majd a form, ha be van lepve (kesobb)
-    
-        //Majd informaljuk a klienst, ha mar irt es magint akar
-        
-        //Ha mar irt, akkor a meglevot modosithatja, vagy torolheti
-            //Modositaskor lesz ott egy modify form, amibe bekerulnek az ertekelesenek adatai,
-            //ha a modositasra kattint majd ezt elkuldve modositjuk a meglevo ertekelest
-    
-        //CRUD -ositani
-    
-    
     @Autowired
     private GameService gameService;
+    
+    @Autowired
+    private ReviewService reviewService;
     
     @Autowired
     private UserService userService;
@@ -51,8 +39,8 @@ public class GameController {
     @GetMapping("/{id}")
     public String getGame(@PathVariable long id, Model model) {
         Game game = gameService.getGame(id);
-        Iterable<Review> reviewsForGame = gameService.getReviewForGame(id);
-        int avgScore = gameService.getAvgScoreForGame(id);
+        Iterable<Review> reviewsForGame = reviewService.getReviewsForGame(id);
+        double avgScore = reviewService.getAvgScoreForGame(id);
         
         if(game != null){
             model.addAttribute("gameName", game.getName());
@@ -71,7 +59,7 @@ public class GameController {
         Game game = gameService.getGame(id);
         
         //Ha mar irt, akkor nem irhat megint
-        if(gameService.hasUserWroteReview(id)){
+        if(reviewService.hasUserWroteReview(id, userService.getUser().getId())){
             //NEM jelenik meg, mert redirect, de am nem is kell majd
             model.addAttribute("alreadyWrote", true);
             return "redirect:/game/" + id;
@@ -80,7 +68,7 @@ public class GameController {
         User user = userService.getUser();
         
         if(game != null){
-            gameService.createReview(review, game, user);
+            reviewService.createReview(review, game, user);
             return "redirect:/game/" + id;
         }
         else{

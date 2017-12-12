@@ -38,16 +38,19 @@ public class User extends BaseModel{
     private String email;
     
     @Column(nullable = false)
+    //@JsonIgnore   Ha maradna, akkor uj regisztracional hiaba kuldjuk a jelszot, az null lesz
     private String password;
+    
+    private String avatar;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AccessLevel accessLevel;
     
-    @OneToMany(targetEntity = Review.class, mappedBy = "user", cascade = CascadeType.MERGE)
+    /*@OneToMany(targetEntity = Review.class, mappedBy = "user", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("user")
     @JsonIgnore
-    private List<Review> reviews;
+    private List<Review> reviews;*/
     
     public enum AccessLevel{USER, ADMIN}
 }

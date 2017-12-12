@@ -1,5 +1,6 @@
 package GameRanks.GameRanks.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.sql.Timestamp;
 import javax.persistence.CascadeType;
@@ -20,17 +21,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Review extends BaseModel{
-    
-    
-    //KELL MEG
-        //Kapcsolatok mas tablakhoz (pl OneToMany az ertekelesekhez)
-    
-        //Jo lenne, ha a score -t lehetne intervallummal korlatozni
-    
-    
     @JoinColumn
     @ManyToOne(targetEntity = Game.class, optional = false, cascade = CascadeType.MERGE)
-    @JsonIgnoreProperties("reviews")
+    @JsonIgnore
     private Game game;
     
     @JoinColumn
@@ -48,6 +41,9 @@ public class Review extends BaseModel{
     private String cons;
     
     @Column(nullable = false)
+    private String platform;
+    
+    @Column(nullable = false, length = 20000)
     private String reviewText;
     
     @Column(nullable = false)

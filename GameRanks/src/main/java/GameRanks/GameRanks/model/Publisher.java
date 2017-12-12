@@ -23,8 +23,10 @@ public class Publisher extends BaseModel{
     @Column(nullable = false, unique = true)
     private String name;
     
-    @OneToMany(targetEntity = Game.class, mappedBy = "publisher", cascade = CascadeType.MERGE)
+    private String logo;
+    
+    /*@OneToMany(targetEntity = Game.class, mappedBy = "publisher", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("publisher")
     @JsonIgnore
-    private List<Game> games;
+    private List<Game> games;*/
 }

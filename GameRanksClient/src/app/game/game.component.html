@@ -1,0 +1,198 @@
+<div id="confirmC">
+	<div id="closeConfirmButton" (click)="ConfirmHandler.no()"></div>
+	<span id="confirmMessage">Are you sure?</span>
+	<div>
+		<div (click)="ConfirmHandler.yes()">Yes</div>
+		<div (click)="ConfirmHandler.no()">No</div>
+	</div>
+</div>
+
+<div id="gameC">
+	<div>
+		<img src="assets/img/games/{{gameStruct.game.coverArt}}">
+		<span>{{gameStruct.game.name}}</span>
+		<span>{{gameStruct.avgScore % 1 === 0 ? gameStruct.avgScore : gameStruct.avgScore.toFixed(1)}}</span>
+		<img src="assets/img/misc/{{gameStruct.rankTitle}}RibbonBent.png">
+	</div>
+
+	<div>
+		<span class="gameMainText">Platforms</span>
+		<div>
+			<div *ngFor="let platform of gameStruct.game.platform" class="{{platform | lowercase}}Label">{{platform != 'XBOXONE' ? platform : 'Xbox One'}}</div>
+		</div>
+
+		<span class="gameMainText">Genre</span>
+		<div id="gameGenreC">
+			<img *ngFor="let genre of gameStruct.game.genre" src="assets/img/misc/{{genre | lowercase}}.png" title="{{(genre != 'MMO' && genre != 'RPG') ? (genre | titlecase) : genre }}">
+		</div>
+
+		<span class="gameMainText">Publisher</span>
+		<span>{{gameStruct.game.publisher.name}}</span>
+
+		<span class="gameMainText">Developer</span>
+		<span>{{gameStruct.game.developer.name}}</span>
+	</div>
+
+	<div>
+		<div id="gameGallery">
+			<div id="gameImgLeft" class="gameImgArrow" (click)="GalleryHandler.goLeft()"></div>
+			<div id="gameImgRight" class="gameImgArrow" (click)="GalleryHandler.goRight()"></div>
+		</div>
+
+		<div id="gameText">
+			{{gameStruct.game.steamId != null ? gameStruct.steamData.about_the_game :
+			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis bibendum, nisl tincidunt semper condimentum, elit dui elementum lorem, et lobortis lectus dolor ut arcu. Donec facilisis lorem nibh, eu facilisis quam efficitur eu. Nulla tellus ex, fringilla quis tincidunt ac, volutpat et massa. Nam condimentum egestas dui ut ultricies. Etiam porta massa metus, vestibulum tristique lorem aliquet quis. Aliquam venenatis velit ac mi consequat, in rutrum urna malesuada. Nulla id feugiat lorem, sed consectetur leo. Ut pretium nibh massa, sit amet interdum dolor bibendum sit amet. Nam at vestibulum felis, sit amet tincidunt ante. Suspendisse in metus at massa pellentesque porta ac vitae sapien. Sed tincidunt lorem vel augue molestie consectetur. Maecenas accumsan quis nulla a fringilla. Donec ultrices tincidunt justo, eu suscipit velit tincidunt non. Vivamus dignissim eleifend lobortis. Sed odio urna, vehicula id varius eget, tincidunt at felis.'
+			}}
+		</div>
+	</div>
+</div>
+
+<div id="reviewsC">
+	<h1>Reviews</h1>
+
+	<div>
+		<div id="reviewFilterOpener" (click)="ReviewHandler.handleOpenClose('f')">
+			<img src="assets/img/misc/search.png" title="Filter">
+		</div>
+
+		<div id="newReviewOpener" (click)="ReviewHandler.handleOpenClose('r')">
+			<img src="assets/img/misc/write.png" title="New review">
+		</div>
+	</div>
+
+	<div id="listFilter">
+		<div>
+			<div>
+				<label for="reviewFilterUser">User: </label>
+				<input type="text" id="reviewFilterUser" name="user">
+			</div>
+
+			<div>
+				<label for="reviewFilterScore">Score: </label>
+				<select id="reviewFilterScore" name="filterScore">
+					<option value="" selected>All</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+
+				<label for="reviewFilterOrder">Order: </label>
+				<select id="reviewFilterOrder" name="order">
+					<option selected>Descending</option>
+					<option >Ascending</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="listFilterButton" (click)="ReviewHandler.filterReview()">Filter</div>
+	</div>
+
+	<div id="newReview">
+		<div>
+			<span>Score</span>
+			<select id="reviewScore" name="reviewScore">
+				<option value="1" selected>1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			</select>
+		</div>
+
+		<div>
+			<div>
+				<span>Pros</span>
+
+				<div id="newReviewPros">
+					<div data-toPro="p1">
+						<input type="text" class="pros">
+						<div data-fromPro="p1" (click)="ReviewHandler.removeProInput($event)"></div>
+					</div>
+				</div>
+
+				<div id="addProButton" (click)="ReviewHandler.addNewProInput()">Add</div>
+			</div>
+
+			<div>
+				<span>Cons</span>
+
+				<div id="newReviewCons">
+					<div data-toCon="c1">
+						<input type="text" class="cons">
+						<div data-fromCon="c1" (click)="ReviewHandler.removeConInput($event)"></div>
+					</div>
+				</div>
+
+				<div id="addConButton" (click)="ReviewHandler.addNewConInput()">Add</div>
+			</div>
+		</div>
+
+		<div>
+			<span>Your platform</span>
+			<select id="reviewPlatform" name="reviewPlatform">
+				<option *ngFor="let platform of gameStruct.game.platform" value="{{platform}}">{{platform}}</option>
+			</select>
+		</div>
+
+		<div>
+			<span>Your review</span>
+			<textarea id="newReviewText"></textarea>
+		</div>
+
+		<div id="submitReviewButton" (click)="ReviewHandler.submitReview()">Submit</div>
+	</div>
+
+	<div id="reviews">
+		<div class="review" *ngFor="let review of ReviewHandler.filteredReviews ; let i = index" ng-init="revNum = $index">
+			<div>
+				<div class="{{review.platform | lowercase}}Bg"></div>
+
+				<div>
+					<span>PROS</span>
+					<ul>
+						<li *ngFor="let pro of review.pros">{{pro}}</li>
+					</ul>
+				</div>
+
+				<div>
+					<div><img src="{{review.user.avatar ? review.user.avatar : 'assets/img/misc/userIconPlaceholder.png'}}"></div>
+					<span>{{review.user.username}}</span>
+					<span>{{review.score}}</span>
+				</div>
+
+				<div>
+					<span>CONS</span>
+					<ul>
+						<li *ngFor="let con of review.cons">{{con}}</li>
+					</ul>
+				</div>
+
+				<div class="{{review.platform | lowercase}}Bg"></div>
+			</div>
+
+			<div><span attr.data-fromReview="rev{{i}}" (click)="ReviewHandler.openCloseReview($event)">ˇ<!--ˆ--></span></div>
+
+			<div *ngIf="isLoggedInService.isLoggedIn() && isLoggedInService.getUsername() === review.user.username" class="reviewOptionsC">
+				<div class="editReview" title="Edit review" (click)="ReviewHandler.editReview(review.id)"></div>
+				<div class="deleteReview" title="Delete review" (click)="ReviewHandler.confirmDelete(review.id)"></div>
+			</div>
+
+			<div attr.data-toReview="rev{{i}}">
+				<div>{{review.reviewText}}</div>
+				<span>Reviewed on {{review.platform}} - {{review.createdOn | date:'dd-MM-yyyy'}}</span>
+			</div>
+		</div>
+	</div>
+</div>

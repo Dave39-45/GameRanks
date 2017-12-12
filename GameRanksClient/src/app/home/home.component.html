@@ -1,0 +1,55 @@
+<div id="titleC">
+	<img src="assets/img/misc/rank.png">
+	<h1>Game Ranks</h1>
+</div>
+
+<div id="topThreeC">
+	<h2>Top 3</h2>
+
+	<div>
+		<div id="topThreeCategorySelected" class="topThreeCategory" (click)="categoryClicked($event, 'g')">Game</div>
+		<div class="topThreeCategory" (click)="categoryClicked($event, 'p')">Publisher</div>
+		<div class="topThreeCategory" (click)="categoryClicked($event, 'd')">Developer</div>
+	</div>
+
+	<div id="topThreeDisplayC" *ngIf="categoryToShow === 'g'">
+		<div *ngFor="let gameStruct of mainPageStruct.topThreeGames" routerLink="/game/{{gameStruct.game.id}}" class="listElement">
+			<div [ngStyle]="{'background-image': 'url(assets/img/games/' + gameStruct.game.listImage + ')'}">
+				<div><b>{{gameStruct.avgScore % 1 === 0 ? gameStruct.avgScore : gameStruct.avgScore.toFixed(1)}}</b></div>
+				<img src="assets/img/misc/{{gameStruct.rankTitle}}RibbonCut.png">
+			</div>
+			<div class="listElementGameInfoC">
+				<div>
+					<div *ngFor="let platform of gameStruct.game.platform" class="{{platform | lowercase}}Label">{{platform != 'XBOXONE' ? platform : 'Xbox One'}}</div>
+				</div>
+				<div>
+					<span>{{gameStruct.game.name}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="topThreeDisplayC" *ngIf="categoryToShow === 'p'">
+		<div *ngFor="let publisherStruct of mainPageStruct.topThreePublishers" routerLink="/publisher/{{publisherStruct.publisher.id}}" class="listElement">
+			<div [ngStyle]="{'background-image': 'url(assets/img/publishers/' + publisherStruct.publisher.listImage + ')'}">
+				<div><b>{{publisherStruct.avgScore % 1 === 0 ? publisherStruct.avgScore : publisherStruct.avgScore.toFixed(1)}}</b></div>
+				<img src="assets/img/misc/{{publisherStruct.rankTitle}}RibbonCut.png">
+			</div>
+			<div class="listElementOtherInfoC">
+				<span>{{publisherStruct.publisher.name}}</span>
+			</div>
+		</div>
+	</div>
+
+	<div id="topThreeDisplayC" *ngIf="categoryToShow === 'd'">
+		<div *ngFor="let developerStruct of mainPageStruct.topThreeDevelopers" routerLink="/developer/{{developerStruct.developer.id}}" class="listElement">
+			<div [ngStyle]="{'background-image': 'url(assets/img/developers/' + developerStruct.developer.listImage + ')'}">
+				<div><b>{{developerStruct.avgScore % 1 === 0 ? developerStruct.avgScore : developerStruct.avgScore.toFixed(1)}}</b></div>
+				<img src="assets/img/misc/{{developerStruct.rankTitle}}RibbonCut.png">
+			</div>
+			<div class="listElementOtherInfoC">
+				<span>{{developerStruct.developer.name}}</span>
+			</div>
+		</div>
+	</div>
+</div>

@@ -15,6 +15,10 @@ public interface UserRepository extends CrudRepository<User, Long>{
     Optional<User> findByEmail(String email);
     
     @Modifying(clearAutomatically = true)
+    @Query("UPDATE User u SET u.avatar = :avatar WHERE u.id = :id")
+    int updateAvatar(@Param("id") long id, @Param("avatar") String avatar);
+    
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE User u SET u.password = :password WHERE u.id = :id")
     int updatePassword(@Param("id") long id, @Param("password") String password);
     

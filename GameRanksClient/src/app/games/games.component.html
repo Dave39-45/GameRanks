@@ -1,0 +1,91 @@
+<div id="listStartC">
+	<div  [ngStyle]="{'background-image': 'url(assets/img/games/' + topThree[1].game.wallpaper + ')'}">
+		<div class="listStartInfoC">
+			<h1>{{topThree[1].game.name}}</h1>
+			<div>{{topThree[1].avgScore % 1 === 0 ? topThree[1].avgScore : topThree[1].avgScore.toFixed(1)}}</div>
+		</div>
+		<img src="assets/img/misc/{{topThree[1].rankTitle}}RibbonCut.png">
+	</div>
+
+	<div  [ngStyle]="{'background-image': 'url(assets/img/games/' + topThree[0].game.wallpaper + ')'}">
+		<div class="listStartInfoC">
+			<h1>{{topThree[0].game.name}}</h1>
+			<div>{{topThree[0].avgScore % 1 === 0 ? topThree[0].avgScore : topThree[0].avgScore.toFixed(1)}}</div>
+		</div>
+		<img src="assets/img/misc/{{topThree[0].rankTitle}}RibbonCut.png">
+	</div>
+
+	<div  [ngStyle]="{'background-image': 'url(assets/img/games/' + topThree[2].game.wallpaper + ')'}">
+		<div class="listStartInfoC">
+			<h1>{{topThree[2].game.name}}</h1>
+			<div>{{topThree[2].avgScore % 1 === 0 ? topThree[2].avgScore : topThree[2].avgScore.toFixed(1)}}</div>
+		</div>
+		<img src="assets/img/misc/{{topThree[2].rankTitle}}RibbonCut.png">
+	</div>
+</div>
+
+<div id="listC">
+	<h2>List of games</h2>
+
+	<div id="listFilterOpener" (click)="filterOpenerClicked()">
+		<img src="assets/img/misc/search.png" title="Filter">
+	</div>
+
+	<div id="listFilter">
+		<div>
+			<div>
+				<label for="filterName">Name: </label>
+				<input type="text" id="filterName" name="name">
+			</div>
+
+			<div>
+				<label for="filterPlatform">Platform: </label>
+				<select id="filterPlatform" name="platform">
+					<option value="" selected>All</option>
+					<option value="PC">PC</option>
+					<option value="PS4">PS4</option>
+					<option value="XBOXOne">Xbox One</option>
+				</select>
+
+				<label for="filterGenre">Genre: </label>
+				<select id="filterGenre" name="genre">
+					<option value="" selected>All</option>
+					<option value="ACTION">Action</option>
+					<option value="CASUAL">Casual</option>
+					<option value="INDIE">Indie</option>
+					<option value="MMO">MMO</option>
+					<option value="RACING">Racing</option>
+					<option value="RPG">RPG</option>
+					<option value="SIMULATION">Simulation</option>
+					<option value="SPORTS">Sports</option>
+					<option value="STRATEGY">Strategy</option>
+				</select>
+
+				<label for="filterOrder">Order: </label>
+				<select id="filterOrder" name="order">
+					<option value="D" selected>Descending</option>
+					<option value="A">Ascending</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="listFilterButton" (click)="filter()">Filter</div>
+	</div>
+
+	<div id="list">
+		<div *ngFor="let gameStruct of games" routerLink="/game/{{gameStruct.game.id}}" class="listElement">
+			<div [ngStyle]="{'background-image': 'url(assets/img/games/' + gameStruct.game.listImage + ')'}">
+				<div><b>{{gameStruct.avgScore % 1 === 0 ? gameStruct.avgScore : gameStruct.avgScore.toFixed(1)}}</b></div>
+				<img *ngIf="gameStruct.rankTitle != 'normal'" src="assets/img/misc/{{gameStruct.rankTitle}}RibbonCut.png">
+			</div>
+			<div class="listElementGameInfoC">
+				<div>
+					<div *ngFor="let platform of gameStruct.game.platform" class="{{platform | lowercase}}Label">{{platform != 'XBOXONE' ? platform : 'Xbox One'}}</div>
+				</div>
+				<div>
+					<span>{{gameStruct.game.name}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

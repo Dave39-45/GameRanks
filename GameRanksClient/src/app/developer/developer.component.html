@@ -1,0 +1,104 @@
+<div id="pubDevC">
+	<div>
+		<div [ngStyle]="{'background-image': 'url(assets/img/developers/' + developerPageStruct.developerStruct.developer.logo + ')'}"></div>
+		<span>{{developerPageStruct.developerStruct.developer.name}}</span>
+		<span>{{developerPageStruct.developerStruct.avgScore % 1 === 0 ? developerPageStruct.developerStruct.avgScore : developerPageStruct.developerStruct.avgScore.toFixed(1)}}</span>
+		<img src="assets/img/misc/{{developerPageStruct.developerStruct.rankTitle}}RibbonBent.png">
+	</div>
+
+	<div>
+		<span>Statistics</span>
+
+		<div>
+			<div>
+				<span>Games per genre</span>
+				<div id="pubDevChartGenre"></div>
+				<div id="pubDevLegendGenre"></div>
+			</div>
+
+			<div>
+				<span>Games per platform</span>
+				<div id="pubDevChartGamesPerPlatform"></div>
+				<div id="pubDevLegendGamesPerPlatform"></div>
+			</div>
+
+			<div>
+				<span>Reviews per platform</span>
+				<div id="pubDevChartReviewsPerPlatform"></div>
+				<div id="pubDevLegendReviewsPerPlatform"></div>
+			</div>
+		</div>
+
+		<div>
+			<span>Average score per platform</span>
+			<div id="pubDevChartScorePerPlatform"></div>
+			<div id="pubDevLegendScorePerPlatform"></div>
+		</div>
+	</div>
+</div>
+
+<div id="listC" class="pubDevListC">
+	<h2>Games developed by {{developerPageStruct.developerStruct.developer.name}}</h2>
+
+	<div id="listFilterOpener" (click)="GamesHandler.filterOpenerClicked()">
+		<img src="assets/img/misc/search.png" title="Filter" >
+	</div>
+
+	<div id="listFilter">
+		<div>
+			<div>
+				<label for="filterName">Name: </label>
+				<input type="text" id="filterName" name="name">
+			</div>
+
+			<div>
+				<label for="filterPlatform">Platform: </label>
+				<select id="filterPlatform" name="platform">
+					<option value="" selected>All</option>
+					<option value="PC">PC</option>
+					<option value="PS4">PS4</option>
+					<option value="XBOXOne">Xbox One</option>
+				</select>
+
+				<label for="filterGenre">Genre: </label>
+				<select id="filterGenre" name="genre">
+					<option value="" selected>All</option>
+					<option value="ACTION">Action</option>
+					<option value="CASUAL">Casual</option>
+					<option value="INDIE">Indie</option>
+					<option value="MMO">MMO</option>
+					<option value="RACING">Racing</option>
+					<option value="RPG">RPG</option>
+					<option value="SIMULATION">Simulation</option>
+					<option value="SPORTS">Sports</option>
+					<option value="STRATEGY">Strategy</option>
+				</select>
+
+				<label for="filterOrder">Order: </label>
+				<select id="filterOrder" name="order">
+					<option value="D" selected>Descending</option>
+					<option value="A">Ascending</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="listFilterButton" (click)="GamesHandler.filter()">Filter</div>
+	</div>
+
+	<div id="list">
+		<div *ngFor="let gameStruct of developerPageStruct.developerStruct.games" routerLink="/game/{{gameStruct.game.id}}" class="listElement">
+			<div [ngStyle]="{'background-image': 'url(assets/img/games/' + gameStruct.game.listImage + ')'}">
+				<div><b>{{gameStruct.avgScore % 1 === 0 ? gameStruct.avgScore : gameStruct.avgScore.toFixed(1)}}</b></div>
+				<img *ngIf="gameStruct.rankTitle != 'normal'" src="assets/img/misc/{{gameStruct.rankTitle}}RibbonCut.png">
+			</div>
+			<div class="listElementGameInfoC">
+				<div>
+					<div *ngFor="let platform of gameStruct.game.platform" class="{{platform | lowercase}}Label">{{platform != 'XBOXONE' ? platform : 'Xbox One'}}</div>
+				</div>
+				<div>
+					<span>{{gameStruct.game.name}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

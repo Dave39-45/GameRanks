@@ -1,0 +1,1855 @@
+/*-------------------------------------------------------------------- General*/
+/*Komponensek szovegehez (pl. menu, nagy cimek)*/
+@font-face {
+	font-family: "JuliusSansOne";
+	src:  url("assets/font/JuliusSansOne-Regular.ttf");
+}
+
+/*Kisebb cimekhez (pl. jatek nevek)*/
+@font-face {
+	font-family: "ScopeOne";
+	src:  url("assets/font/ScopeOne-Regular.ttf");
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background: no-repeat fixed center/100% 100% url("assets/img/misc/bg2.jpg");
+}
+
+.pcBg{
+	background-color: black;
+}
+
+.ps4Bg{
+	background-color: rgb(4,105,177);
+}
+
+.xboxoneBg{
+	background-color: rgb(18,126,17);
+}
+
+/*------------------------------------ Message + Confirm dialog*/
+#messageC, #confirmC{
+	display: none;
+	width: 13em;
+	padding: 2em 1em;
+	margin: auto;
+	/*margin-top: 5em;*/
+	left: 0;
+	right: 0;
+	position: fixed;
+	/*display: flex;*/
+	justify-content: center;
+	align-items: center;
+	background-color: lightgray;
+	font-family: "ScopeOne", sans-serif;
+	font-size: 1.35em;
+	text-align: center;
+	box-shadow: inset 0 0 20px 0 rgb(0,0,0);
+	z-index: 200;
+	border: 3px ridge dimgray;
+}
+
+#confirmC{
+	flex-direction: column;
+	padding-bottom: 1.5em;
+	border: 3px ridge dimgray;
+}
+
+.success{
+	border: 3px ridge green!important;
+}
+
+.error{
+	border: 3px ridge red!important;
+}
+
+.neutral{
+	border: 3px ridge dimgray!important;
+}
+
+/*--- Uzenet animaciok ---*/
+.displayMessage{
+	display: flex!important;
+	animation: messageDisplay 1s ease forwards;
+}
+
+@keyframes messageDisplay {
+	from {
+		display: none;
+		margin-top: 0;
+	}
+	to {
+		display: flex;
+		margin-top: 5em;
+	}
+}
+
+.displayConfirm{
+	display: flex!important;
+	animation: confirmDisplay 1s ease forwards;
+}
+
+@keyframes confirmDisplay {
+	from {
+		display: none;
+		margin-top: 0;
+	}
+	to {
+		display: flex;
+		margin-top: 18%;
+	}
+}
+/*-----------------------------*/
+
+#closeMessageButton, #closeConfirmButton{
+	width: 1em;
+	height: 1em;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	background: no-repeat center/100% 100% url("assets/img/misc/delete.png");
+	cursor: pointer;
+}
+
+#closeMessageButton:hover, #closeConfirmButton:hover{
+	background: no-repeat center/100% 100% url("assets/img/misc/closeHover.png");
+}
+
+#confirmC > div:last-of-type{
+	width: 7em;
+	margin-top: 1em;
+	display: flex;
+	justify-content: space-around;
+}
+
+#confirmC > div:last-of-type > div{
+	background-color: lightgray;
+	width: 2.75em;
+	height: 1.5em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 0.9em;
+}
+
+#confirmC > div:last-of-type > div:hover{
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+
+
+/*------------------------------------ Login*/
+#loginC{
+	width: 2em;
+	height: 2em;
+	position: absolute;
+	top: 0.75em;
+	right: 1.5em;
+	background: no-repeat center/100% 100% url("assets/img/misc/login.png");
+	cursor: pointer;
+	z-index: 150;
+}
+
+#loginC:hover{
+	background-image: url("assets/img/misc/loginHover.png");
+}
+
+/*--- Login panel animaciok ---*/
+.openLogin{
+	background: none!important;
+	animation: loginOpen 1s ease forwards;
+}
+
+@keyframes loginOpen {
+	from {
+		width: 2em;
+		height: 2em;
+		box-shadow: none;
+	}
+	to {
+		width: 12em;
+		height: 15em;
+		box-shadow: inset 0 0 20px 0 rgb(0,0,0);
+		cursor: default;
+		background-color: lightgray;
+	}
+}
+
+.closeLogin{
+	animation: loginClose 1s ease forwards;
+}
+
+@keyframes loginClose {
+	from {
+		width: 12em;
+		height: 15em;
+		box-shadow: inset 0 0 20px 0 rgb(0,0,0);
+		cursor: default;
+		background: none;
+	}
+	to {
+		width: 2em;
+		height: 2em;
+		box-shadow: none;
+		cursor: pointer;
+		background: no-repeat center/100% 100% url("assets/img/misc/login.png");
+	}
+}
+/*-----------------------------*/
+
+#loginInnerC{
+	width: 90%;
+	height: 90%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: "ScopeOne", sans-serif;
+	visibility: hidden;
+}
+
+/*--- Login belso panel animaciok ---*/
+.openLoginInner{
+	animation: loginInnerOpen 0.1s 0.75s ease forwards;
+}
+
+@keyframes loginInnerOpen {
+	from {visibility: hidden;}
+	to {visibility: visible;}
+}
+
+.closeLoginInner{
+	height: 5.375em!important;
+	animation: loginInnerClose 1.5s ease forwards;
+}
+
+@keyframes loginInnerClose {
+	from {visibility: visible;}
+	to {visibility: hidden;}
+}
+/*-----------------------------*/
+
+#loginInnerC > label{
+	margin-top: 0.5em;
+}
+
+#loginInnerC > input{
+	width: 80%;
+}
+
+#loginButton, #toRegisterButton{
+	background-color: lightgray;
+	width: 4em;
+	height: 1.75em;
+	margin-top: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+	font-family: "JuliusSansOne", sans-serif;
+}
+
+#toRegisterButton{
+	width: 5em;
+	margin-top: 0.25em;
+}
+
+#loginButton:hover, #toRegisterButton:hover{
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+#loginInnerC > span:last-of-type{
+	margin-top: 1em;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+}
+
+
+
+
+/*------------------------------------ Logout*/
+#logout{
+	display: none;
+	width: 2em;
+	height: 2em;
+	position: absolute;
+	top: 0.75em;
+	right: 1.5em;
+	background: no-repeat center/100% 100% url("assets/img/misc/logout.png");
+	cursor: pointer;
+	z-index: 150;
+}
+
+
+
+#toProfile{
+	width: 2em;
+	height: 2em;
+	position: absolute;
+	top: 0.75em;
+	right: 4em;
+	background: no-repeat center/100% 100% url("assets/img/misc/toProfile.png");
+	cursor: pointer;
+	z-index: 150;
+}
+
+
+
+
+/*------------------------------------ Menu*/
+#menu{
+	width: 60%;
+	min-width: 40em;
+	height: 3em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(180, 180, 180);
+	margin: auto;
+	z-index: 100;
+	position: relative;
+	box-shadow: 0 4px 25px 0 rgb(0,0,0);
+}
+
+.menuItem{
+	flex-grow: 1;
+	width: 9em;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 1.25em;
+	cursor: pointer;
+	outline: none;
+}
+
+.menuItem:first-of-type{
+	border-right: 1px solid black;
+}
+
+.menuItem:last-of-type{
+	border-left: 1px solid black;
+}
+
+.menuItem:hover{
+	color: whitesmoke;
+}
+
+#logo{
+	width: 6em;
+	height: 6em;
+	margin-top: 3em;
+	background-color: dimgray;
+	border: 3px ridge whitesmoke;
+	border-bottom-left-radius: 5em;
+	border-bottom-right-radius: 5em;
+}
+
+#logo > img{
+	width: 100%;
+}
+
+
+
+/*------------------------------------ List*/
+#listStartC{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: space-around;
+}
+
+#listStartC > div{
+	width: 32%;
+	height: 100%;
+	position: relative;
+	box-shadow: 0 0 20px 0 rgb(0,0,0);
+	background: no-repeat center;
+}
+
+.pubDevWallpaper{
+	background-size: 400px!important;
+}
+
+.listStartInfoC{
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.55);
+	position: absolute;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/*Ha ravisszuk az egeret a tarolora, akkor megjelenik a belso*/
+#listStartC > div:hover .listStartInfoC{
+	display: flex;
+}
+
+.listStartInfoC > h1{
+	color: whitesmoke;
+	font-family: "JuliusSansOne", serif;
+	text-align: center;
+}
+
+.listStartInfoC > div{
+	width: 2em;
+	height: 2em;
+	color: whitesmoke;
+	font-family: "JuliusSansOne", serif;
+	font-size: 1.75em;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: inset 0 0 20px 5px rgba(255,255,255,0.75);
+	border-bottom-left-radius: 2em;
+	border-bottom-right-radius: 2em;
+}
+
+#listStartC > div > img{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+
+
+#listC{
+	width: 52em;
+	margin: auto;
+	margin-top: 75%;
+	margin-bottom: 4.5em;/*18em;/*4.5em;*/
+	padding: 1.5em;
+	font-family: "JuliusSansOne", sans-serif;
+	text-align: center;
+	box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+}
+
+#listC > h2{
+	padding: 0;
+	margin-top: 0;
+}
+
+#listFilterOpener{
+	width: 2.75em;
+	height: 2.75em;
+	background-size: contain;
+	margin-left: 1.5em;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.listFilterOpenerOn{
+	box-shadow: inset 0 0 15px 0 rgba(0,0,0,0.75);
+	border-radius: 0.25em;
+}
+
+#listFilterOpener > img{
+	height: 1.75em;
+}
+
+#listFilter{
+	width: 49em;
+	height: 0;
+	overflow: hidden;
+	margin: auto;
+	margin-top: 0.25em;
+	display: flex;
+	align-content: stretch;
+	align-items: center;
+	box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+}
+
+/*--- Szuro panel animaciok ---*/
+.openListFilter{
+	animation: listFilterOpen 1.5s ease forwards;
+}
+
+@keyframes listFilterOpen {
+	from {height: 0;}
+	to {height: 5.375em;}
+}
+
+.closeListFilter{
+	height: 5.375em!important;
+	animation: listFilterClose 1.5s ease forwards;
+}
+
+@keyframes listFilterClose {
+	from {height: 5.375em;}
+	to {height: 0;}
+}
+/*-----------------------------*/
+
+#listFilter > div:first-of-type{
+	width: 85%;
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	margin-bottom: 1em;
+}
+
+#listFilter > div:first-of-type > div{
+	margin-left: 1em;
+}
+
+#listFilter > div:first-of-type > div:first-of-type{
+	margin-top: 1em;
+}
+
+#listFilter > div:first-of-type > div:not(:first-of-type){
+	margin-top: 0.5em;
+}
+
+#listFilter > div:first-of-type input, select, option{
+	font-family: "ScopeOne", serif;
+}
+
+#listFilterButton{
+	background-color: lightgray;
+	width: 4em;
+	height: 2em;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+#listFilterButton:hover{
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+#list{
+	width: 52em;
+	max-height: 41.625em;
+	margin: auto;
+	margin-top: 1em;
+	padding-bottom: 1em;
+	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+/*Scrollbar - http://scriptgenerator.net/html-css-custom-scrollbar-code-generator/*/
+#list::-webkit-scrollbar{
+	width:7px;
+	background-color:#cccccc;
+}
+#list::-webkit-scrollbar:horizontal{
+	height:10px;
+}
+#list::-webkit-scrollbar-track{
+	border:1px #787878 solid;
+	-webkit-box-shadow:0 0 6px #c8c8c8 inset;
+}
+#list::-webkit-scrollbar-thumb{
+	background-color:#d9d8d8;
+	border:1px solid #000000;
+}
+#list::-webkit-scrollbar-thumb:hover{
+	background-color:#f2f2f2;
+	border:1px solid #333333;
+}
+#list::-webkit-scrollbar-thumb:active{
+	background-color:#b8b8b8;
+	border:1px solid #333333;
+}
+/*--------*/
+
+
+
+/*------------------------------------ List element*/
+.listElement{
+	width: 16em;
+	height: 13em;
+	margin-top: 0.75em;
+	display: inline-block;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	cursor: pointer;
+	border: 3px solid rgb(180,180,180);
+}
+
+.listElement > div:first-of-type{
+	width: 100%;
+	height: 65%;
+	background: no-repeat center/100% 100% /*url("assets/img/misc/placeholder.jpg")*/;
+	position: relative;
+}
+
+.listElement > div:first-of-type > div:first-of-type{
+	width: 2.5em;
+	height: 2em;
+	/*background-color: lightgray;*/
+	background-color: dimgray;
+	color: whitesmoke;
+	border-bottom-right-radius: 1.5em;
+	line-height: 2em;
+	border-right: 2px solid whitesmoke;
+	border-bottom: 2px solid whitesmoke;
+}
+
+.listElement > div:first-of-type > img{
+	width: 4em;
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: rotate(180deg);
+}
+
+.listElement > div:last-of-type{
+	width: 100%;
+	height: 35%;
+	background-color: lightgray;
+}
+
+.listElement > .listElementGameInfoC > div:first-of-type{
+	width: 100%;
+	height: 1em;
+	display: flex;
+	align-items: center;
+	font-size: 0.7em;
+	font-family: "ScopeOne", serif;
+}
+
+.listElement > .listElementGameInfoC > div:first-of-type > div{
+	flex-grow: 1;
+	height: 1em;
+}
+
+.listElement > .listElementGameInfoC > div:last-of-type, .listElement > .listElementOtherInfoC{
+	position: relative;
+}
+
+.listElement > .listElementGameInfoC > div:last-of-type > span, .listElement > .listElementOtherInfoC > span{
+	width: 80%;
+	height: 100%;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pcLabel{
+	background-color: black;
+	color: white;
+}
+
+.ps4Label{
+	background-color: rgb(4,105,177);
+	color: white;
+}
+
+.xboxoneLabel{
+	background-color: rgb(18,126,17);
+	color: white;
+}
+
+.listElement > .listElementGameInfoC > div:last-of-type{
+	height: calc(100% - 0.75em);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	box-shadow: inset 0 5px 15px 0 rgba(0,0,0,0.75);
+	font-family: "JuliusSansOne", serif;
+	font-size: 0.9em;
+}
+
+.listElement > .listElementOtherInfoC{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	box-shadow: inset 0 5px 15px 0 rgba(0,0,0,0.75);
+	font-family: "JuliusSansOne", serif;
+}
+
+
+
+#titleC{
+	margin: auto;
+	margin-top: 10em;
+	text-align: center;
+}
+
+#titleC > img{
+	height: 30em;
+	display: block;
+	margin: auto;
+}
+
+#titleC > h1{
+	font-family: "JuliusSansOne", sans-serif;
+}
+
+
+
+/*-------------------------------------------------------------------- Main page*/
+#topThreeC{
+	width: 52em;
+	margin: auto;
+	margin-top: 20em;
+	margin-bottom: 20em;
+	padding: 1.5em;
+	font-family: "JuliusSansOne", sans-serif;
+	text-align: center;
+	box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+}
+
+#topThreeC > h2{
+	padding: 0;
+	margin-top: 0;
+}
+
+#topThreeC > div:first-of-type{
+	width: 30em;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: auto;
+}
+
+.topThreeCategory{
+	width: 7em;
+	height: 2em;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+#topThreeCategorySelected{
+	background-color: rgb(250, 250, 250);
+}
+
+#topThreeDisplayC{
+	width: 52em;
+	margin: auto;
+	margin-top: 1em;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+
+
+/*-------------------------------------------------------------------- Game page*/
+#gameC{
+	width: 70%;
+	min-width: 64em;
+	height: 48.75em;
+	min-height: 35em;
+	margin: auto;
+	margin-top: 4.5em;
+	display: flex;
+}
+
+#gameC > div{
+	height: 100%;
+}
+
+#gameC > div:first-of-type{
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#gameC > div:first-of-type > img:first-of-type{
+	width: 70%;
+	height: 50%;
+	margin-top: 3em;
+	background: no-repeat center/100% 100% /*url("assets/img/misc/misc/coverArt.jpg")*/;
+	box-shadow: 0 0 20px 0 rgb(0,0,0);
+}
+
+#gameC > div:first-of-type > span:first-of-type{
+	max-width: 70%;
+	margin-top: 1.25em;
+	text-align: center;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#gameC > div:first-of-type > span:last-of-type{
+	margin-top: 0.75em;
+	padding: 0.35em;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 3em;
+	font-weight: 500;
+	text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+}
+
+#gameC > div:first-of-type > img:last-of-type{
+	margin-top: -3.5em;
+	height: 4em;
+}
+
+#gameC > div:nth-child(2){
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: "JuliusSansOne", serif;
+}
+
+#gameC > div:nth-child(2) > span:first-of-type{
+	margin-top: 2em;
+	font-size: 1.5em;
+	font-weight: bold;
+	font-family: "JuliusSansOne", serif!important;
+}
+
+#gameC > div:nth-child(2) > div:first-of-type{
+	width: 12em;
+	display: flex;
+	justify-content: center;
+	align-content: stretch;
+}
+
+#gameC > div:nth-child(2) > div:first-of-type > div{
+	flex-grow: 1;
+	padding: 0.25em 0.25em;
+	margin-top: 0.5em;
+	text-align: center;
+}
+
+#gameC > div:nth-child(2) > div:first-of-type > .pcLabel{
+	max-width: 2.125em;
+}
+
+#gameC > div:nth-child(2) > div:first-of-type > .ps4Label{
+	max-width: 2.125em;
+}
+
+#gameC > div:nth-child(2) > div:first-of-type > .xboxoneLabel{
+	max-width: 5.85em;
+}
+
+.gameMainText{
+	margin-top: 1.5em;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#gameGenreC {
+	width: 11em;
+	max-width: 11em;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+#gameGenreC > img{
+	height: 1.5em;
+	margin: 0.5em 0.25em 0 0.25em;
+}
+
+#gameC > div:last-of-type{
+	width: 50%;
+	box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+}
+
+#gameGallery{
+	width: 80%;
+	height: 20em;
+	margin: auto;
+	margin-top: 3em;
+	position: relative;
+	background: no-repeat center/100% 100% url("assets/img/misc/galleryPlaceholder.png");
+	box-shadow: 0 0 20px 0 rgb(0,0,0);
+}
+
+#gameC > div:last-of-type > div:first-of-type:hover .gameImgArrow{
+	display: block;
+}
+
+#gameC > div:last-of-type > div:first-of-type > div{
+	display: none;
+	width: 2em;
+	height: 100%;
+	cursor: pointer;
+	box-shadow: inset 0 0 15px 0 rgba(255,255,255,0.75);
+}
+
+#gameImgLeft{
+	float: left;
+	background: no-repeat center/100% url("assets/img/misc/leftArrow.png");
+}
+
+#gameImgLeft:hover{
+	background: no-repeat center/100% url("assets/img/misc/leftArrowHover.png");
+}
+
+#gameImgRight{
+	float: right;
+	background: no-repeat center/100% url("assets/img/misc/rightArrow.png");
+}
+
+#gameImgRight:hover{
+	background: no-repeat center/100% url("assets/img/misc/rightArrowHover.png");
+}
+
+#gameText{
+	width: 80%;
+	height: 20em;
+	margin: auto;
+	margin-top: 3em;
+	padding: 0 0.5em;
+	font-family: "ScopeOne", sans-serif;
+	text-align: justify;
+	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+/*Scrollbar - http://scriptgenerator.net/html-css-custom-scrollbar-code-generator/*/
+#gameText::-webkit-scrollbar{
+	width:7px;
+	background-color:#cccccc;
+}
+#gameText::-webkit-scrollbar:horizontal{
+	height:10px;
+}
+#gameText::-webkit-scrollbar-track{
+	border:1px #787878 solid;
+	-webkit-box-shadow:0 0 6px #c8c8c8 inset;
+}
+#gameText::-webkit-scrollbar-thumb{
+	background-color:#d9d8d8;
+	border:1px solid #000000;
+}
+#gameText::-webkit-scrollbar-thumb:hover{
+	background-color:#f2f2f2;
+	border:1px solid #333333;
+}
+#gameText::-webkit-scrollbar-thumb:active{
+	background-color:#b8b8b8;
+	border:1px solid #333333;
+}
+/*--------*/
+
+
+
+#reviewsC{
+	width: 55em;
+	margin: auto;
+	margin-top: 25%;
+	margin-bottom: 18em;/*4.5em;*/
+	padding: 1.5em;
+	font-family: "JuliusSansOne", sans-serif;
+}
+
+#reviewsC > h1{
+	padding: 0;
+	margin-top: 0;
+	text-align: center;
+}
+
+#reviewsC > div:first-of-type{
+	display: flex;
+	justify-content: space-between;
+}
+
+#reviewFilterOpener, #newReviewOpener{
+	width: 2.75em;
+	height: 2.75em;
+	background-size: contain;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#reviewFilterOpener{
+	margin-left: 1.5em;
+}
+
+.reviewOpenerOn{
+	box-shadow: inset 0 0 15px 0 rgba(0,0,0,0.75);
+	border-radius: 0.25em;
+}
+
+#reviewFilterOpener > img, #newReviewOpener > img{
+	height: 1.75em;
+}
+
+#newReviewOpener{
+	float: right;
+	margin-right: 1.5em;
+}
+
+
+
+#newReview{
+	width: 49em;
+	max-height: 0;
+	overflow: hidden;
+	margin: auto;
+	margin-top: 0.25em;
+	box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+}
+
+/*--- Uj ertekeles paneljanak animacioi ---*/
+.openNewReview{
+	animation: newReviewOpen 4s ease forwards;
+}
+
+/*Hogy azt a hatast erjuk el, mintha 0 -rol auto -ra menne, azt kell csinalni, hogy egy olyan erteket adunk,
+ amekkora biztos nem lesz. Ennek a hatranya, a sebesseg nehezkes beallitasa*/
+@keyframes newReviewOpen {
+	from {max-height: 0;}
+	to {max-height: 74em;}
+}
+
+.closeNewReview{
+	animation: newReviewClose 1.25s ease forwards;
+}
+
+@keyframes newReviewClose {
+	from {max-height: 74em;}
+	to {max-height: 0;}
+}
+/*----------------------------------------*/
+
+#newReview > div:first-of-type{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#newReview > div:first-of-type > span{
+	font-size: 1.4em;
+	margin-top: 1em;
+}
+
+#newReview > div:first-of-type > select{
+	margin-top: 0.25em;
+}
+
+#newReview > div:nth-of-type(2){
+	margin-top: 2em;
+	display: flex;
+	justify-content: space-between;
+}
+
+#newReview > div:nth-of-type(2) > div{
+	width: 45%;
+	box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 1em;
+}
+
+#newReview > div:nth-of-type(2) > div:first-of-type{
+	margin-left: 1.5em;
+}
+
+#newReview > div:nth-of-type(2) > div:last-of-type{
+	margin-right: 1.5em;
+}
+
+#newReview > div:nth-of-type(2) > div:first-of-type > span:first-of-type, #newReview > div:nth-of-type(2) > div:last-of-type > span:first-of-type{
+	display: block;
+	margin-top: -1em;
+	text-align: center;
+	font-size: 1.4em;
+}
+
+#newReviewPros, #newReviewCons{
+	width: 70%;
+}
+
+#newReviewPros > div , #newReviewCons > div {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 1em;
+}
+
+#newReviewPros > div > input, #newReviewCons > div > input{
+	width: 15em;
+	font-family: "ScopeOne", sans-serif;
+}
+
+#newReviewPros > div > div, #newReviewCons > div > div{
+	width: 1.25em;
+	height: 1.25em;
+	margin-left: 0.5em;
+	background: no-repeat center/100% 100% url("assets/img/misc/delete.png");
+	cursor: pointer;
+	border-radius: 0.25em;
+}
+
+#newReviewPros > div > div:hover, #newReviewCons > div > div:hover{
+	background: no-repeat center/100% 100% url("assets/img/misc/deleteHover.png");
+}
+
+#newReview > div:nth-of-type(2) > div:first-of-type > div:last-of-type, #newReview > div:nth-of-type(2) > div:last-of-type > div:last-of-type{
+	background-color: lightgray;
+	width: 3.5em;
+	height: 1.75em;
+	margin-top: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 0.9em;
+	cursor: pointer;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+#newReview > div:nth-of-type(2) > div:first-of-type > div:last-of-type:hover, #newReview > div:nth-of-type(2) > div:last-of-type > div:last-of-type:hover{
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+#newReview > div:nth-of-type(3), #newReview > div:nth-of-type(4){
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 2em;
+}
+
+#newReview > div:nth-of-type(3) > span, #newReview > div:nth-of-type(4) > span{
+	font-size: 1.4em;
+}
+
+#reviewPlatform{
+	margin-top: 0.25em;
+}
+
+#newReviewText{
+	width: 30em;
+	height: 15em;
+	margin-top: 0.5em;
+	outline: none;
+	resize: none;
+	font-family: "ScopeOne", sans-serif;
+}
+
+/*Scrollbar - http://scriptgenerator.net/html-css-custom-scrollbar-code-generator/*/
+#newReviewText::-webkit-scrollbar{
+	width:7px;
+	background-color:#cccccc;
+}
+#newReviewText::-webkit-scrollbar:horizontal{
+	height:10px;
+}
+#newReviewText::-webkit-scrollbar-track{
+	border:1px #787878 solid;
+	-webkit-box-shadow:0 0 6px #c8c8c8 inset;
+}
+#newReviewText::-webkit-scrollbar-thumb{
+	background-color:#d9d8d8;
+	border:1px solid #000000;
+}
+#newReviewText::-webkit-scrollbar-thumb:hover{
+	background-color:#f2f2f2;
+	border:1px solid #333333;
+}
+#newReviewText::-webkit-scrollbar-thumb:active{
+	background-color:#b8b8b8;
+	border:1px solid #333333;
+}
+/*--------*/
+
+#submitReviewButton{
+	background-color: lightgray;
+	width: 4em;
+	height: 2em;
+	margin: 1.5em auto 2em auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+#submitReviewButton:hover{
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+
+
+#reviews{
+	width: 95%;
+	margin: auto;
+	margin-top: 2em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+.review{
+	width: 100%;
+	min-height: 6em;
+	margin-top: 7em;
+	position: relative;
+}
+
+.review:first-of-type{
+	margin-top: 5em;
+}
+
+.review > div:first-of-type{
+	width: 100%;
+	min-height: 6em;
+	display: flex;
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+	position: relative;
+}
+
+/*Ha nincs az ertekeleseknel a kez szelen szines felkor*/
+/*.review > div:first-of-type > div:first-of-type, .review > div:first-of-type > div:last-of-type{
+    width: 40%;
+    min-height: 6em;
+    box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+    font-family: "ScopeOne", sans-serif;
+}
+
+.review > div:first-of-type > div:first-of-type > span:first-of-type, .review > div:first-of-type > div:last-of-type > span:first-of-type{
+    display: block;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.review > div:first-of-type > div:first-of-type > ul, .review > div:first-of-type > div:last-of-type > ul{
+    margin-top: 0.25em;
+}
+
+.review > div:first-of-type > div:first-of-type > ul > li:not(:first-of-type), .review > div:first-of-type > div:last-of-type > ul > li:not(:first-of-type){
+    margin-top: 0.5em;
+}
+
+.review > div:first-of-type > div:first-of-type > ul > li{
+    list-style-image: url("img/plus.png");
+}
+
+.review > div:first-of-type > div:last-of-type > ul > li{
+    list-style-image: url("img/minus.png");
+}
+
+.review > div:first-of-type > div:nth-of-type(2){
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > div:first-of-type{
+    width: calc(100% - 6px);
+    height: 3em;
+    margin: auto;
+    margin-top: -3.15em;
+    margin-bottom: 0;
+    background: no-repeat center/3em url("img/witcher3OwnReview.png");
+    background-color: dimgray;
+    border-top-left-radius: 5em;
+    border-top-right-radius: 5em;
+    border: 3px ridge black;
+    border-bottom: none;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.75);
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > span:first-of-type{
+    padding-top: 0.3em;
+    padding-bottom: 0.2em;
+    background-color: dimgray;
+    color: whitesmoke;
+    border: 3px ridge black;
+    border-top: none;
+}
+
+.pcReviewx{
+    background-color: black!important;
+    border: 3px ridge lightgray;
+}
+
+.ps4Reviewx{
+    background-color: rgb(4,105,177)!important;
+    border: 3px ridge lightgray;
+}
+
+.xboxReviewx{
+    background-color: rgb(18,126,17)!important;
+    border: 3px ridge lightgray;
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > span:nth-of-type(2){
+    margin: 0.5em 0;
+    font-size: 2em;
+    font-weight: 500;
+    text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > div > span{
+    font-size: 5em;
+    font-weight: 500;
+    text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+    cursor: pointer;
+}*/
+
+
+.review > div:first-of-type > div:first-of-type, .review > div:first-of-type > div:last-of-type{
+	width: 1em;
+	height: 100%;
+	border-radius: 100% 0 0 100%;
+	position: absolute;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+.review > div:first-of-type > div:first-of-type{
+	left: -1em;
+	border-radius: 100% 0 0 100%;
+}
+
+.review > div:first-of-type > div:last-of-type{
+	float: right;
+	right: -0.95em;
+	border-radius: 0 100% 100% 0;
+}
+
+.review > div:first-of-type > div:nth-of-type(2), .review > div:first-of-type > div:nth-of-type(4){
+	width: 40%;
+	min-height: 6em;
+	box-shadow: inset 0 0 20px 0 rgba(0,0,0,0.75);
+	font-family: "ScopeOne", sans-serif;
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > span:first-of-type, .review > div:first-of-type > div:nth-of-type(4) > span:first-of-type{
+	display: block;
+	text-align: center;
+	margin-top: 0.5em;
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > ul, .review > div:first-of-type > div:nth-of-type(4) > ul{
+	margin-top: 0.25em;
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > ul > li:not(:first-of-type), .review > div:first-of-type > div:nth-of-type(4) > ul > li:not(:first-of-type){
+	margin-top: 0.5em;
+}
+
+.review > div:first-of-type > div:nth-of-type(2) > ul > li{
+	list-style-image: url("assets/img/misc/plus.png");
+}
+
+.review > div:first-of-type > div:nth-of-type(4) > ul > li{
+	list-style-image: url("assets/img/misc/minus.png");
+}
+
+.review > div:first-of-type > div:nth-of-type(3){
+	width: 20%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.review > div:first-of-type > div:nth-of-type(3) > div:first-of-type{
+	width: calc(100% - 6px);
+	height: 3em;
+	margin: auto;
+	margin-top: -3.15em;
+	margin-bottom: 0;
+	/*background: no-repeat center/3em url("assets/img/misc/userIconPlaceholder.png");*/
+	background-color: dimgray;
+	border-top-left-radius: 5em;
+	border-top-right-radius: 5em;
+	border: 3px ridge black;
+	border-bottom: none;
+	box-shadow: 0 0 20px 0 rgba(0,0,0,0.75);
+}
+
+.review > div:first-of-type > div:nth-of-type(3) > div:first-of-type > img{
+	width: 3em;
+	height: 3em;
+}
+
+.review > div:first-of-type > div:nth-of-type(3) > span:first-of-type{
+	padding-top: 0.3em;
+	padding-bottom: 0.2em;
+	background-color: dimgray;
+	color: whitesmoke;
+	border: 3px ridge black;
+	border-top: none;
+}
+
+.review > div:first-of-type > div:nth-of-type(3) > span:nth-of-type(2){
+	margin: 0.5em 0;
+	font-size: 2em;
+	font-weight: 500;
+	text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+}
+
+.review > div:first-of-type > div:nth-of-type(3) > div > span{
+	font-size: 5em;
+	font-weight: 500;
+	text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+	cursor: pointer;
+}
+
+.review > div:nth-of-type(2){
+	/*width: 4em;*/
+	width: 10em;
+	height: 1.25em;
+	margin: auto;
+	overflow: hidden;
+	text-align: center;
+	cursor: pointer;
+	border: 2px solid lightgray;
+	border-top: none;
+	border-bottom-left-radius: 5em;
+	border-bottom-right-radius: 5em;
+}
+
+.review > div:nth-of-type(2):hover{
+	background-color: whitesmoke;
+}
+
+.review > div:nth-of-type(2) > span{
+	display: block;
+	margin-top: -0.15em;
+	font-size: 5em;
+	font-weight: 500;
+	text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+}
+
+.reviewOptionsC{
+	position: absolute;
+	right: 0;
+	top: -1.5em;
+}
+
+.editReview, .deleteReview{
+	width: 1em;
+	height: 1em;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.editReview{
+	background: no-repeat center/100% 100% url("assets/img/misc/write.png");
+	margin-right: 0.5em;
+}
+
+.deleteReview{
+	background: no-repeat center/100% 100% url("assets/img/misc/x.png");
+}
+
+.review > div:last-of-type{
+	width: 65%;
+	max-height: 0;
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+	margin: auto;
+	margin-top: -1.45em;
+	overflow: hidden;
+	font-family: "ScopeOne", sans-serif;
+}
+
+.review > div:last-of-type > div{
+	width: 88%;
+	margin: auto;
+	padding-top: 2em;
+	text-align: justify;
+}
+
+.review > div:last-of-type > span{
+	display: block;
+	width: 88%;
+	margin: auto;
+	padding-top: 0.75em;
+	padding-bottom: 1.5em;
+	text-align: right;
+	font-style: italic;
+}
+
+/*--- Review animaciok ---*/
+.openReview{
+	animation: reviewOpen 4s ease forwards;
+}
+
+/*Hogy azt a hatast erjuk el, mintha 0 -rol auto -ra menne, azt kell csinalni, hogy egy olyan erteket adunk,
+ amekkora biztos nem lesz. Ennek a hatranya, a sebesseg nehezkes beallitasa*/
+@keyframes reviewOpen {
+	from {max-height: 0;}
+	to {max-height: 120em;}
+}
+
+.closeReview{
+	animation: reviewClose 0.75s ease forwards;
+}
+
+@keyframes reviewClose {
+	from {max-height: 100em;}
+	to {max-height: 0;}
+}
+/*------------------------*/
+
+
+
+/*-------------------------------------------------------------------- Publisher/developer page*/
+#pubDevC{
+	width: 70em;
+	min-width: 64em;
+	min-height: 35em;
+	margin: auto;
+	margin-top: 12em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#pubDevC > div{
+	height: 100%;
+}
+
+#pubDevC > div:first-of-type{
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#pubDevC > div:first-of-type > div{
+	width: 17.5em;
+	height: 17.5em;
+	margin-top: 3em;
+	background: no-repeat center/100% 100% /*url("assets/img/misc/cdpLogo.jpg")*/;
+	box-shadow: 0 0 20px 0 rgb(0,0,0);
+}
+
+#pubDevC > div:first-of-type > span:first-of-type{
+	max-width: 70%;
+	margin-top: 1.25em;
+	text-align: center;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#pubDevC > div:first-of-type > span:last-of-type{
+	margin-top: 0.75em;
+	padding: 0.35em;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 3em;
+	font-weight: 500;
+	text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+}
+
+#pubDevC > div:first-of-type > img{
+	margin-top: -3.5em;
+	height: 4em;
+}
+
+#pubDevC > div:last-of-type{
+	width: 100%;
+	margin-top: 40%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+#pubDevC > div:last-of-type > span:first-of-type{
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+#pubDevC > div:last-of-type > div:first-of-type{
+	width: 100%;
+	margin-top: 1em;
+	display: flex;
+}
+
+#pubDevC > div:last-of-type > div:first-of-type > div{
+	width: 33%;
+	/*box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);*/
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#pubDevC > div:last-of-type > div:first-of-type > div > span:first-of-type{
+	margin-top: 1em;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+#pubDevC > div:last-of-type > div:first-of-type > div > div:first-of-type{
+	width: 23.5em;
+	height: 23.5em;
+	margin-top: -2em;
+}
+
+#pubDevC > div:last-of-type > div:first-of-type > div > div:last-of-type, #pubDevLegendScorePerPlatform{
+	width: 80%;
+	margin-top: -2em;
+	margin-bottom: 2em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+
+}
+
+#pubDevC > div:last-of-type > div:first-of-type > div > div:last-of-type > div{
+	display: flex;
+	margin-top: 0.5em;
+}
+
+#pubDevC > div:last-of-type > div:first-of-type > div > div:last-of-type > div > div{
+	width: 1em;
+	height: 1em;
+	border-radius: 0.25em;
+	border: 1px solid dimgray;
+}
+
+#pubDevC > div:last-of-type > div:first-of-type > div > div:last-of-type > div > span{
+	margin-left: 0.25em;
+	font-family: "JuliusSansOne", sans-serif;
+}
+
+#pubDevC > div:last-of-type > div:last-of-type{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#pubDevC > div:last-of-type > div:last-of-type > span:first-of-type{
+	margin-top: 1em;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+#pubDevChartScorePerPlatform{
+	width: 80%;
+	height: 25em;
+	margin-top: -2em;
+}
+
+.pubDevListC{
+	margin-top: 30em!important;
+	margin-bottom: 20em!important;
+}
+
+
+
+
+/*-------------------------------------------------------------------- User page*/
+#userC{
+	width: 62em;
+	height: 37.5em;
+	margin: auto;
+	margin-top: 10em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#userC > div{
+	height: 100%;
+}
+
+#userC > div:first-of-type{
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	margin-top: 2em;
+}
+
+#userC > div:first-of-type > div:first-of-type{
+	width: 17.5em;
+	height: 17.5em;
+	margin-top: 3em;
+	background: no-repeat center/100% 100% /*url("assets/img/misc/cdpLogo.jpg")*/;
+	box-shadow: 0 0 20px 0 rgb(0,0,0);
+}
+
+#userSettingsOpener{
+	width: 1.5em;
+	height: 1.5em;
+	background: no-repeat center/100% 100% url("assets/img/misc/gear.png");
+	position: absolute;
+	right: 14%;
+	top: 8%;
+	cursor: pointer;
+}
+
+#userC > div:first-of-type > span:first-of-type{
+	margin-top: 0.5em;
+	padding: 0.35em;
+	font-family: "JuliusSansOne", sans-serif;
+	font-size: 3em;
+	font-weight: 500;
+	text-shadow: 0 3px 5px rgba(150, 150, 150, 1);
+}
+
+#userSettings{
+	width: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: "ScopeOne", sans-serif;
+	overflow: hidden;
+	box-shadow: inset 0 0 20px 0 rgb(0,0,0);
+	padding: 1.5em 0;
+}
+
+/*--- User settings ---*/
+.openUserSettings{
+	animation: userSettingsOpen 1.5s ease forwards;
+}
+
+@keyframes userSettingsOpen {
+	from {width: 0;}
+	to {width: 50%;}
+}
+
+.closeUserSettings{
+	animation: userSettingsClose 1s ease forwards;
+}
+
+@keyframes userSettingsClose {
+	from {width: 50%;}
+	to {width: 0;}
+}
+/*------------------------*/
+
+#userSettings > div{
+	width: 30em;
+}
+
+#userSettings > div > span:first-of-type{
+	display: block;
+	font-size: 1.3em;
+	font-weight: bold;
+	font-family: "JuliusSansOne", sans-serif;
+	margin-bottom: 0.5em;
+}
+
+#userSettings > div:first-of-type{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#userSettings > div:first-of-type > img{
+	width: 10em;
+	height: 10em;
+	background-color: gray;
+}
+
+#userSettings > div:first-of-type > label:first-of-type{
+	margin-top: 0.5em;
+}
+
+#userSettings > div:nth-of-type(2){
+	margin-top: 2.5em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#userSettings > div:nth-of-type(2) > label:nth-of-type(2){
+	margin-top: 0.5em;
+}
+
+#userSettings > div:nth-of-type(3){
+	margin-top: 2.5em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#userSettings > div:last-of-type{
+	margin-top: 2.5em;
+	display: flex;
+	justify-content: center;
+}
+
+#userSettingsSaveButton{
+	width: 8em;
+	height: 2em;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: lightgray;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+	font-family: "JuliusSansOne", sans-serif;
+}
+
+#userSettingsSaveButton:hover{
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+}
+
+
+
+
+/*-------------------------------------------------------------------- Register page*/
+#regC{
+	width: 26em;
+	height: 32em;
+	margin: auto;
+	margin-top: 10em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: inset 0 0 20px 0 rgb(0,0,0);
+	font-family: "JuliusSansOne", sans-serif;
+}
+
+#regC > label:first-of-type{
+	margin-top: 5em;
+}
+
+#regC > label{
+	margin-top: 2em;
+}
+
+#regButton{
+	width: 6em;
+	height: 2em;
+	margin-top: 3em;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: lightgray;
+	box-shadow: 0 0 10px 0 rgba(0,0,0,0.75);
+	font-family: "JuliusSansOne", sans-serif;
+}
+
+#regButton:hover{
+	box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.75);
+}

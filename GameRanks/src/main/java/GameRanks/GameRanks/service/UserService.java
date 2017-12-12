@@ -39,12 +39,27 @@ public class UserService {
         return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }
     
+    public boolean isUserAlreadyExists(User user){
+        return (userRepository.findByEmail(user.getEmail()).isPresent() || userRepository.findByUsername(user.getUsername()).isPresent());
+    }
+    
     public boolean isLoggedIn() {
         return user != null;
     }
     
     public User getUser() { 
         return user; 
+    }
+    
+    public void reloadUser(){
+        if(this.user != null){
+            user = userRepository.findOne(user.getId());
+        }
+    }
+    
+    @Transactional
+    public boolean changeAvatar(String avatar){
+        return userRepository.updateAvatar(user.getId(), avatar) > 0;
     }
     
     @Transactional

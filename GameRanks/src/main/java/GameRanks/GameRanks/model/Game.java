@@ -39,17 +39,34 @@ public class Game extends BaseModel{
     @Column(nullable = false)
     private Timestamp releaseDate;
     
-    //A jateknal megjeleno kep
-    private String image;
+    //A jatekhoz tartozo platformok # -el elvalasztva ha tobb van
+    @Column(nullable = false)
+    private String platform;
     
     //A jatekhoz tartozo mufajok # -el elvalasztva ha tobb van
     @Column(nullable = false)
     private String genre;
     
-    @OneToMany(targetEntity = Review.class, mappedBy = "game", cascade = CascadeType.MERGE)
+    //A jatekok listajanal, ha a top 3 -ban van
+    private String wallpaper;
+    
+    //A listaban megjeleno kep
+    private String listImage;
+    
+    //Megnyitott jateknal a kep
+    private String coverArt;
+    
+    //Sajat ertekelesnel a jateknal megjeleno kep
+    private String smallImage;
+    
+    private String steamId;
+    
+    /*@OneToMany(targetEntity = Review.class, mappedBy = "game", cascade = CascadeType.MERGE)
     @JsonIgnoreProperties("game")
     @JsonIgnore
-    private List<Review> reviews;
+    private List<Review> reviews;*/
+    
+    public enum Platform{PC, PS4, XBOXONE};
     
     public enum Genre{ACTION, ADVENTURE, CASUAL, INDIE, MMO, RACING, RPG, SIMULATION, SPORTS, STRATEGY};
 }
