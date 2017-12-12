@@ -506,6 +506,326 @@ GameRanks
 </pre>
 </details>
 
+#### 3.2.2 Kliens oldal
+<details>
+<summary>Click to expand</summary>
+<pre>
+GameRanksClient/src
+│   favicon.ico
+│   index.html
+│   main.ts
+│   polyfills.ts
+│   styles.css
+│   test.ts
+│   tsconfig.app.json
+│   tsconfig.spec.json
+│   typings.d.ts
+│   
+├───app
+│   │   app.component.css
+│   │   app.component.html
+│   │   app.component.spec.ts
+│   │   app.component.ts
+│   │   app.module.ts
+│   │   display-message.service.spec.ts
+│   │   display-message.service.ts
+│   │   is-logged-in.service.spec.ts
+│   │   is-logged-in.service.ts
+│   │   ResponseToModel.service.spec.ts
+│   │   ResponseToModel.service.ts
+│   │   
+│   ├───DAL
+│   │       DALForReads.service.spec.ts
+│   │       DALForReads.service.ts
+│   │       DALForWrites.service.spec.ts
+│   │       DALForWrites.service.ts
+│   │       
+│   ├───developer
+│   │       developer.component.css
+│   │       developer.component.html
+│   │       developer.component.spec.ts
+│   │       developer.component.ts
+│   │       
+│   ├───developers
+│   │       developers.component.css
+│   │       developers.component.html
+│   │       developers.component.spec.ts
+│   │       developers.component.ts
+│   │       
+│   ├───enums
+│   │       AccessLevel.ts
+│   │       Platform.ts
+│   │       
+│   ├───game
+│   │       game.component.css
+│   │       game.component.html
+│   │       game.component.spec.ts
+│   │       game.component.ts
+│   │       
+│   ├───games
+│   │       games.component.css
+│   │       games.component.html
+│   │       games.component.spec.ts
+│   │       games.component.ts
+│   │       
+│   ├───home
+│   │       home.component.css
+│   │       home.component.html
+│   │       home.component.spec.ts
+│   │       home.component.ts
+│   │       
+│   ├───menu
+│   │       menu.component.css
+│   │       menu.component.html
+│   │       menu.component.spec.ts
+│   │       menu.component.ts
+│   │       
+│   ├───models
+│   │   ├───entity
+│   │   │       BaseModel.ts
+│   │   │       Developer.ts
+│   │   │       Game.ts
+│   │   │       NewReview.ts
+│   │   │       Publisher.ts
+│   │   │       RegUser.ts
+│   │   │       Review.ts
+│   │   │       ReviewUser.ts
+│   │   │       User.ts
+│   │   │       UserPageReviewStruct.ts
+│   │   │       
+│   │   └───serverStructs
+│   │       ├───element
+│   │       │       DeveloperStruct.ts
+│   │       │       GameStruct.ts
+│   │       │       NewReviewStruct.ts
+│   │       │       PublisherStruct.ts
+│   │       │       StatisticStruct.ts
+│   │       │       UserStruct.ts
+│   │       │       
+│   │       └───page
+│   │               DeveloperPageStruct.ts
+│   │               MainPageStruct.ts
+│   │               PublisherPageStruct.ts
+│   │               UserPageStruct.ts
+│   │               
+│   ├───publisher
+│   │       publisher.component.css
+│   │       publisher.component.html
+│   │       publisher.component.spec.ts
+│   │       publisher.component.ts
+│   │       
+│   ├───publishers
+│   │       publishers.component.css
+│   │       publishers.component.html
+│   │       publishers.component.spec.ts
+│   │       publishers.component.ts
+│   │       
+│   ├───register
+│   │       register.component.css
+│   │       register.component.html
+│   │       register.component.spec.ts
+│   │       register.component.ts
+│   │       
+│   ├───routing
+│   │       routing.module.ts
+│   │       
+│   └───user
+│           user.component.css
+│           user.component.html
+│           user.component.spec.ts
+│           user.component.ts
+│           
+├───assets
+│   │   .gitkeep
+│   │   
+│   ├───font
+│   │       JuliusSansOne-Regular.ttf
+│   │       ScopeOne-Regular.ttf
+│   │       
+│   └───img
+│       ├───developers
+│       │       bioware.jpg
+│       │       biowareL.jpg
+│       │       blizzard.png
+│       │       blizzardL.png
+│       │       bluehole.jpg
+│       │       blueholeL.jpg
+│       │       cdpr.png
+│       │       cdprL.png
+│       │       codemasters.png
+│       │       codemastersL.png
+│       │       concernedApe.jpg
+│       │       concernedApeL.jpg
+│       │       defiantDevelopment.jpg
+│       │       defiantDevelopmentL.jpg
+│       │       dice.jpg
+│       │       diceL.jpg
+│       │       eala.jpg
+│       │       ealaL.jpg
+│       │       ensembleStudios.jpg
+│       │       ensembleStudiosL.jpg
+│       │       pearlAbyss.jpg
+│       │       pearlAbyssL.jpg
+│       │       simsStudio.png
+│       │       simsStudioL.png
+│       │       slightlyMadStudios.png
+│       │       slightlyMadStudiosL.png
+│       │       ubiMontreal.jpg
+│       │       ubiMontrealL.jpg
+│       │       
+│       ├───games
+│       │       aoe3C.png
+│       │       aoe3I.png
+│       │       aoe3L.jpg
+│       │       aoe3W.jpg
+│       │       as2C.jpg
+│       │       as2I.png
+│       │       as2L.jpg
+│       │       as2W.jpg
+│       │       as4bfC.jpg
+│       │       as4bfI.png
+│       │       as4bfL.jpg
+│       │       as4bfW.jpg
+│       │       asoC.jpg
+│       │       asoI.png
+│       │       asoL.jpg
+│       │       asoW.jpg
+│       │       bdoC.jpg
+│       │       bdoI.png
+│       │       bdoL.jpg
+│       │       bdoW.png
+│       │       bf1C.jpg
+│       │       bf1I.png
+│       │       bf1L.jpg
+│       │       bf1W.jpg
+│       │       c&c3twC.jpg
+│       │       c&c3twI.png
+│       │       c&c3twL.jpg
+│       │       c&c3twW.jpg
+│       │       c&cr3C.jpg
+│       │       c&cr3I.png
+│       │       c&cr3L.jpg
+│       │       c&cr3W.jpg
+│       │       daiC.png
+│       │       daiI.png
+│       │       daiL.jpg
+│       │       daiW.jpg
+│       │       f12017C.jpg
+│       │       f12017I.png
+│       │       f12017L.jpg
+│       │       f12017W.jpg
+│       │       hof2C.jpg
+│       │       hof2L.jpg
+│       │       hof2W.jpg
+│       │       hofI.jpg
+│       │       hsC.jpg
+│       │       hsI.png
+│       │       hsL.jpg
+│       │       hsW.jpg
+│       │       meaC.jpg
+│       │       meaI.png
+│       │       meaL.png
+│       │       meaW.jpg
+│       │       owC.jpg
+│       │       owI.png
+│       │       owL.png
+│       │       owW.jpg
+│       │       pc2C.png
+│       │       pc2I.png
+│       │       pc2L.jpg
+│       │       pc2W.jpg
+│       │       pubgC.jpg
+│       │       pubgI.png
+│       │       pubgL.jpg
+│       │       pubgW.jpg
+│       │       sims3C.jpg
+│       │       sims3I.png
+│       │       sims3L.jpg
+│       │       sims3W.jpg
+│       │       starValC.png
+│       │       starValI.png
+│       │       starValL.jpg
+│       │       starValW.png
+│       │       tw3whC.jpg
+│       │       tw3whI.png
+│       │       tw3whL.jpg
+│       │       tw3whW.jpg
+│       │       wowC.jpg
+│       │       wowI.png
+│       │       wowL.jpg
+│       │       wowW.jpg
+│       │       
+│       ├───misc
+│       │       action.png
+│       │       adventure.png
+│       │       bg2.jpg
+│       │       bronzeRibbonBent.png
+│       │       bronzeRibbonCut.png
+│       │       casual.png
+│       │       closeHover.png
+│       │       delete.png
+│       │       deleteHover.png
+│       │       galleryPlaceholder.png
+│       │       gear.png
+│       │       goldRibbonBent.png
+│       │       goldRibbonCut.png
+│       │       indie.png
+│       │       leftArrow.png
+│       │       leftArrowHover.png
+│       │       login.png
+│       │       loginHover.png
+│       │       logout.png
+│       │       minus.png
+│       │       mmo.png
+│       │       normalRibbonBent.png
+│       │       plus.png
+│       │       racing.png
+│       │       rank.png
+│       │       rightArrow.png
+│       │       rightArrowHover.png
+│       │       rpg.png
+│       │       search.png
+│       │       silverRibbonBent.png
+│       │       silverRibbonCut.png
+│       │       simulation.png
+│       │       sports.png
+│       │       strategy.png
+│       │       toProfile.png
+│       │       userAvatarPlaceholder.png
+│       │       userIconPlaceholder.png
+│       │       write.png
+│       │       x.png
+│       │       
+│       └───publishers
+│               bandaiNamco.jpg
+│               bandaiNamcoL.jpg
+│               blizzard.png
+│               blizzardL.png
+│               bluehole.jpg
+│               blueholeL.jpg
+│               cdp.jpg
+│               cdpL.jpg
+│               chucklefish.png
+│               chucklefishL.png
+│               codemasters.png
+│               codemastersL.png
+│               defiantDevelopment.jpg
+│               defiantDevelopmentL.jpg
+│               ea.png
+│               eaL.png
+│               kakaoGames.jpg
+│               kakaoGamesL.jpg
+│               microsoftStudios.png
+│               microsoftStudiosL.png
+│               ubisoft.png
+│               ubisoftL.png
+│               
+└───environments
+        environment.prod.ts
+        environment.ts
+</pre>
+</details>
+
 ### 3.3 Kapcsolat a szerverrel
 - A kliens a szerverrel a DAL (Data Access Layer) modulon keresztül kommunikál. A modul két részből áll, a DALForReads -ből, mellyel adatlekéréseket, illetve a DALForWrites -ból, amivel adat módosításokat végzünk. Mindkét esetben a szerver megfelelő /api végpontját hívjuk, az Angular HttpClient modulja segítségével.
 
@@ -530,19 +850,19 @@ A program használatához a szervert és a kliens kiszolgálóját egyszerre kel
 - A kliens (GameRanksClient) esetében elsőként ki kell adnunk az npm install parancsot, a gyökér mappában, hogy települjenek a szükséges függőségek. Ezután ugyan itt adjuk ki az npm start parancsot a futtatáshoz. Az elindulást követően, az alkalmazás a localhost:4200 -as címen lesz elérhető.
 
 ### 4.3 Kliensoldali szolgáltatások
-- Folyamatosan frissülő ranglista
+#### Folyamatosan frissülő ranglista
 A GameRanks oldala a játésosok véleméynén alapszik. Minden egyes új értékelés befolyásolja, hogy mely játék, milyen pontszámmal rendelkezik, ezáltal meghatározva rangsorbeli pozícióját. Mivel a játékokat fejlesztők készítették és kiadók adták ki, minden egyes módosítás kiahat az ő értékelésükre is, ezzel létrehozva egy dinamikusan változó ranglistát.
 Az rangsor játékokra, kiadókra és fejlesztőkre oszlik, az egyszerűbb eligazodás érdekében.
 
-- Kedvenceink
+#### Kedvenceink
 Minden egyes játékról megannyi információ áll rendelkezésünkre, ha meglátogatjuk a játék oldalát. Itt megtekinthetjük az alapvető adatokat (műfaj, platform, kiadó, fejlesztő) a játék pontszámát, sőt, aki többre vágyik az megcsodálhatja a játékhoz kapcsolódó galériát és belemerülhet a játék szöveges ismertetésébe.
 A játékoknál megtaláljuk azok értékeléseit is, így teljessé téve a listát.
 
-- Az alkotók
+#### Az alkotók
 Az oldalon nem csak a játékok kapják a főszerepet, így a kiadókat és fejlesztőket böngészve, statisztikákat találhatunk, melyek bővebb információt adnak arról, hogy mely műfajban érdekelt az aktuális cég, hogyan oszlik meg platformonként az értékelések aránya és még sorolhatnám.
 Az egyszerűséget követve, az adott kiadó/fejlesztő esetében, megtalálhatjuk az általa kiadott/fejlesztett játékok listáját is.
 
-- Én, az értékelő
+#### Én, az értékelő
 Regisztráció és belépés után, feltárulnak előttünk az eddig rejtett funkciók. Többek között testreszabhatjuk profilunkat, valamint saját értékeléseket írhatunk, melyeket aztán kedvünk szerint módosíthatunk, vagy törölhetünk.
 
 ### 4.4 A program használata
